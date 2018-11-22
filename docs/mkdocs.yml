@@ -3,11 +3,14 @@ site_name: pytest_patterns
 repo_url: https://github.com/smarie/pytest-patterns
 pages:
     - Home: index.md
-    - API reference: api_reference.md
+    - Examples:
+      - Data science benchmark: examples/data_science_benchmark/description.md
     - Changelog: changelog.md
 theme: material  # readthedocs  mkdocs
 
 markdown_extensions:
   - admonition  # to add notes such as http://squidfunk.github.io/mkdocs-material/extensions/admonition/
-  - codehilite(guess_lang=false)
-  - toc(permalink=true)
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
