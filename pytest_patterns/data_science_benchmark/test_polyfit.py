@@ -21,7 +21,7 @@ from pytest_patterns.data_science_benchmark import test_polyfit_cases
 class SubPlotsManager(object):
     def __init__(self, nb_subplots):
         import matplotlib.pyplot as plt
-        fig, ax = plt.subplots(2, ceil(nb_subplots / 2), figsize=(25, 20))
+        fig, ax = plt.subplots(2, int(ceil(nb_subplots / 2)), figsize=(25, 20))
         self.nb_subplots = nb_subplots
         self.cur_subplot = 0
         self.ax = ax
