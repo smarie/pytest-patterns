@@ -1,0 +1,13 @@
+test_id;dataset;challenger;degree;status;duration_ms;cvrmse
+test_poly_fit[polyfit degree=1-Anscombe's quartet 1];Anscombe's quartet 1;polyfit(degree=1);1;passed;1,9998550415039062;0,14912189683638255
+test_poly_fit[polyfit degree=2-Anscombe's quartet 1];Anscombe's quartet 1;polyfit(degree=2);2;passed;1,0001659393310547;0,1443996153122046
+test_poly_fit[polyfit degree=1-Anscombe's quartet 2];Anscombe's quartet 2;polyfit(degree=1);1;passed;0,9999275207519531;0,14919556312261775
+test_poly_fit[polyfit degree=2-Anscombe's quartet 2];Anscombe's quartet 2;polyfit(degree=2);2;passed;0,9999275207519531;0,00019015017344626496
+test_poly_fit[polyfit degree=1-Anscombe's quartet 3];Anscombe's quartet 3;polyfit(degree=1);1;passed;0,0;0,1491047591497399
+test_poly_fit[polyfit degree=2-Anscombe's quartet 3];Anscombe's quartet 3;polyfit(degree=2);2;passed;0,9999275207519531;0,14494258828223647
+test_poly_fit[polyfit degree=1-Anscombe's quartet 4];Anscombe's quartet 4;polyfit(degree=1);1;passed;0,0;0,149012420838969
+test_poly_fit[polyfit degree=2-Anscombe's quartet 4];Anscombe's quartet 4;polyfit(degree=2);2;passed;0,9999275207519531;0,14901242083896896
+test_poly_fit[polyfit degree=1-Data file 'contant-1.csv'];Data file 'contant-1.csv';polyfit(degree=1);1;passed;0,0;6,101178080101948e-16
+test_poly_fit[polyfit degree=2-Data file 'contant-1.csv'];Data file 'contant-1.csv';polyfit(degree=2);2;passed;0,9999275207519531;3,385725185095924e-16
+test_poly_fit[polyfit degree=1-Data file 'v-shape.csv'];Data file 'v-shape.csv';polyfit(degree=1);1;passed;0,0;0,6319344053226461
+test_poly_fit[polyfit degree=2-Data file 'v-shape.csv'];Data file 'v-shape.csv';polyfit(degree=2);2;passed;0,0;0,21228271972499918

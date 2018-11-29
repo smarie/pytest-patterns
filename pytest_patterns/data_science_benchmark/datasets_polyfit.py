@@ -5,8 +5,11 @@ import numpy as np
 from pytest_cases import cases_generator
 
 
-def generate_anscombes_dataset(i):
-    """ Returns the I-th dataset in the Anscombe's quartet """
+@cases_generator("Anscombe's quartet {i}", i=range(1, 5))
+def case_anscombe(i):
+    """
+    Generates one case for each of the Anscombe's quartet
+    """
     if i == 1:
         x = [10.0, 8.0, 13.0, 9.0, 11.0, 14.0, 6.0, 4.0, 12.0, 7.0, 5.0]
         y = [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68]
@@ -23,15 +26,8 @@ def generate_anscombes_dataset(i):
         raise ValueError("Anscombes quartet contains, well... 4 datasets. "
                          "Invalid i=%s" % i)
 
-    return np.array(x, dtype=float), np.array(y, dtype=float)
-
-
-@cases_generator("Anscombe's quartet {i}", i=range(1, 5))
-def case_anscombe(i):
-    """ This is where we can both provide the dataset AND the expected results/errors (TODO expected accuracy?) """
-
-    # get data
-    x, y = generate_anscombes_dataset(i)
+    x = np.array(x, dtype=float)
+    y = np.array(y, dtype=float)
 
     return x, y
 
@@ -43,7 +39,9 @@ ALL_DATASET_FILES = [(DATASETS_DIR, file_name) for file_name in listdir(DATASETS
 
 @cases_generator("Data file '{csv_file_path[1]}'", csv_file_path=ALL_DATASET_FILES)
 def case_file(csv_file_path):
-    """ """
+    """
+    Generates one case per file in the datasets/ folder
+    """
     my_data = np.genfromtxt(path.join(*csv_file_path), delimiter=',', names=True)
     x = my_data['x']
     y = my_data['y']
