@@ -1,6 +1,6 @@
 # pytest-patterns
 
-[![Build Status](https://travis-ci.org/smarie/pytest-patterns.svg?branch=master)](https://travis-ci.org/smarie/pytest-patterns) [![Tests Status](https://smarie.github.io/pytest-patterns/junit/junit-badge.svg?dummy=8484744)](https://smarie.github.io/pytest-patterns/junit/report.html) [![codecov](https://codecov.io/gh/smarie/pytest-patterns/branch/master/graph/badge.svg)](https://codecov.io/gh/smarie/pytest-patterns) [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://smarie.github.io/pytest-patterns/)
+[![Build Status](https://travis-ci.org/smarie/pytest-patterns.svg?branch=master)](https://travis-ci.org/smarie/pytest-patterns) [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://smarie.github.io/pytest-patterns/)
 
 A couple of examples showing how to use core `pytest` mechanisms and existing plugins (no additional hooks nor hacks) to solve real-world problems. In other words:
  
@@ -10,7 +10,7 @@ A couple of examples showing how to use core `pytest` mechanisms and existing pl
 
 ## Current list of examples
 
- * [Data science benchmark](./examples/data_science_benchmark/description) demonstrates how pytest can be used as a benchmarking engine to compare the performances of several data sciences algorithms on several datasets and produce a report table. This example also shows how plots can be integrated in pytest.
+ * [Data science benchmark](./examples/data_science_benchmark/) demonstrates how pytest can be used as a benchmarking engine to compare the performances of several data sciences algorithms on several datasets and produce a report table. This example also shows how plots can be integrated in pytest.
 
 ## See Also
 

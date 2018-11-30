@@ -4,9 +4,9 @@ language: python
 # cache: pip
 
 python:
-  - "2.7"
+#  - "2.7"
   - "3.5"
-  - "3.6"
+#  - "3.6"
 #  - "3.7"  NOT AVAILABLE ON TRAVIS YET..
 #  - "3.7-dev" # 3.7 development branch
 #  - "nightly" # currently points to 3.7-dev

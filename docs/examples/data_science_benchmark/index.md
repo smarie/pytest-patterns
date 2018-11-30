@@ -336,12 +336,3 @@ Note that according to [pytest_harvest documentation](https://smarie.github.io/p
 To sum-up, the code looks like this:
 
 ![Architecture](Architecture.png)
-
-
-
-
-## To go further
-
-There are a couple things that we could wish to do in real-world situations. We present below two of them that are included in the `data_science_benchmark_advanced/` example files, also available from [here]().
-
-**TODO continue**
