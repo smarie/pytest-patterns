@@ -1,0 +1,1123 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.3, mkdocs-material-2.7.3">
+    
+    
+      
+        <title>Data science benchmark - pytest_patterns</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.8d40d89b.css">
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <a href="#data-science-benchmark-example" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../.." title="pytest_patterns" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                pytest_patterns
+              </span>
+              <span class="md-header-nav__topic">
+                Data science benchmark
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/smarie/pytest-patterns/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    pytest_patterns
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/smarie/pytest-patterns/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      GitHub
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Examples
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Data science benchmark
+      </label>
+    
+    <a href="./" title="Data science benchmark" class="md-nav__link md-nav__link--active">
+      Data science benchmark
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" title="Motivation" class="md-nav__link">
+    Motivation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-research" title="a- Research" class="md-nav__link">
+    a- Research
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-industry" title="b- Industry" class="md-nav__link">
+    b- Industry
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-missing-today" title="What is missing today ?" class="md-nav__link">
+    What is missing today ?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-description" title="Example description" class="md-nav__link">
+    Example description
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-challengers" title="a- Challengers" class="md-nav__link">
+    a- Challengers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-datasets" title="b- Datasets" class="md-nav__link">
+    b- Datasets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-evaluation-protocol" title="c- Evaluation protocol" class="md-nav__link">
+    c- Evaluation protocol
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-solution" title="Example solution" class="md-nav__link">
+    Example solution
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-executing" title="a- Executing" class="md-nav__link">
+    a- Executing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-run" title="First run" class="md-nav__link">
+    First run
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-summary-plot" title="Optional: summary plot" class="md-nav__link">
+    Optional: summary plot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-tabulate" title="Optional: tabulate" class="md-nav__link">
+    Optional: tabulate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-pytest-filtering" title="Optional: pytest filtering" class="md-nav__link">
+    Optional: pytest filtering
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-pytest-profiling" title="Optional: pytest profiling" class="md-nav__link">
+    Optional: pytest profiling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-understanding-the-code" title="b- Understanding the code" class="md-nav__link">
+    b- Understanding the code
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-protocol" title="Evaluation protocol" class="md-nav__link">
+    Evaluation protocol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#challengers" title="Challengers" class="md-nav__link">
+    Challengers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datasets" title="Datasets" class="md-nav__link">
+    Datasets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results-bag" title="Results bag" class="md-nav__link">
+    Results bag
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synthesis-table-creation" title="Synthesis table creation" class="md-nav__link">
+    Synthesis table creation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" title="Summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-go-further" title="To go further" class="md-nav__link">
+    To go further
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation" title="Motivation" class="md-nav__link">
+    Motivation
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-research" title="a- Research" class="md-nav__link">
+    a- Research
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-industry" title="b- Industry" class="md-nav__link">
+    b- Industry
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-missing-today" title="What is missing today ?" class="md-nav__link">
+    What is missing today ?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-description" title="Example description" class="md-nav__link">
+    Example description
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-challengers" title="a- Challengers" class="md-nav__link">
+    a- Challengers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-datasets" title="b- Datasets" class="md-nav__link">
+    b- Datasets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-evaluation-protocol" title="c- Evaluation protocol" class="md-nav__link">
+    c- Evaluation protocol
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-solution" title="Example solution" class="md-nav__link">
+    Example solution
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-executing" title="a- Executing" class="md-nav__link">
+    a- Executing
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#requirements" title="Requirements" class="md-nav__link">
+    Requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#first-run" title="First run" class="md-nav__link">
+    First run
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-summary-plot" title="Optional: summary plot" class="md-nav__link">
+    Optional: summary plot
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-tabulate" title="Optional: tabulate" class="md-nav__link">
+    Optional: tabulate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-pytest-filtering" title="Optional: pytest filtering" class="md-nav__link">
+    Optional: pytest filtering
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-pytest-profiling" title="Optional: pytest profiling" class="md-nav__link">
+    Optional: pytest profiling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-understanding-the-code" title="b- Understanding the code" class="md-nav__link">
+    b- Understanding the code
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-protocol" title="Evaluation protocol" class="md-nav__link">
+    Evaluation protocol
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#challengers" title="Challengers" class="md-nav__link">
+    Challengers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#datasets" title="Datasets" class="md-nav__link">
+    Datasets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results-bag" title="Results bag" class="md-nav__link">
+    Results bag
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synthesis-table-creation" title="Synthesis table creation" class="md-nav__link">
+    Synthesis table creation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary" title="Summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#to-go-further" title="To go further" class="md-nav__link">
+    To go further
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/smarie/pytest-patterns/edit/master/docs/examples/data_science_benchmark/description.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="data-science-benchmark-example">Data science benchmark example<a class="headerlink" href="#data-science-benchmark-example" title="Permanent link">&para;</a></h1>
+<p><img alt="Results_table" src="../results/results_table.png" /></p>
+<h2 id="motivation">Motivation<a class="headerlink" href="#motivation" title="Permanent link">&para;</a></h2>
+<h3 id="a-research">a- Research<a class="headerlink" href="#a-research" title="Permanent link">&para;</a></h3>
+<p>Most experimental data science papers nowadays include <strong>results tables</strong> at the end of the paper, where typically there is one entry per dataset per configuration to try (parameters). To produce these tables, we/our interns/our PhD students spend a significant amount of coding and debugging time that could be devoted to more interesting matters (such as focusing on improving the core algorithm itself).</p>
+<h3 id="b-industry">b- Industry<a class="headerlink" href="#b-industry" title="Permanent link">&para;</a></h3>
+<p>A frequent need for teams industrializing data science software bricks is to be able to <strong>test them against a large quantity of datasets</strong>, in other words to create a <em>reference benchmark</em>. Teams might have two objectives in mind:</p>
+<ul>
+<li>getting an overview of the <strong>performance of a single algorithm</strong> on a large quantity of cases, so as to be sure of its genericity</li>
+<li><strong>comparing several algorithms or several configurations</strong>, to see which one is the best overall and on specific cases.</li>
+</ul>
+<h2 id="what-is-missing-today">What is missing today ?<a class="headerlink" href="#what-is-missing-today" title="Permanent link">&para;</a></h2>
+<p>It is obviously quite trivial to start developing a benchmark engine: a couple <code>for</code> loops can do the trick. However as soon as one wishes to</p>
+<ul>
+<li>run each evaluation in an independent context (possibly distributed on several processors/platforms)</li>
+<li>
+<p>and for each evaluation, get an independent capability to:</p>
+<ul>
+<li>Log (see what has been done)</li>
+<li>Debug (understand why it does not work as expected)</li>
+<li>Profile (understand what takes time to potentially improve speed)</li>
+</ul>
+</li>
+</ul>
+<p>Then one finds out that it is a bit more complex to develop. And by taking a step back we find that <code>pytest</code> and its ecosystem (<code>pytest-profile</code>, <code>pytest-logging</code>, <code>pytest-xdist</code>...) <strong>already provide all of this</strong> (plus a nice integration in your IDE) !</p>
+<h2 id="example-description">Example description<a class="headerlink" href="#example-description" title="Permanent link">&para;</a></h2>
+<p>In this simple example we will benchmark the <code>np.polyfit</code> function, that fits polynomial functions. Our benchmark activity is described by three axis of variability: <em>challengers</em> (this encompasses both variability in algorithms and parameters), <em>datasets</em>, and <em>evaluation protocol</em>.</p>
+<p>You can download all the python scripts from this example <a href="">here</a>.</p>
+<h3 id="a-challengers">a- Challengers<a class="headerlink" href="#a-challengers" title="Permanent link">&para;</a></h3>
+<p>The <code>polyfit</code> function has a <code>degree</code> parameter allowing to restrict the polynomial order of the function. We will compare two configurations: </p>
+<ul>
+<li>degree = 1 (linear regression)</li>
+<li>degree = 2 (quadratic).</li>
+</ul>
+<h3 id="b-datasets">b- Datasets<a class="headerlink" href="#b-datasets" title="Permanent link">&para;</a></h3>
+<p>We both want to test the algorithm against:</p>
+<ul>
+<li>datasets generated from python code (in this example we will generate the famous <a href="https://en.wikipedia.org/wiki/Anscombe%27s_quartet">Anscombe's quartet</a>)</li>
+<li>datasets provided as <a href="https://github.com/smarie/pytest-patterns/blob/master/pytest_patterns/data_science_benchmark/datasets">csv files</a></li>
+</ul>
+<p>In real world applications it makes sense to use code to <strong>generate edge/challenging cases</strong> while continuing to use data files to represent <strong>"typical" datasets</strong> (real-world data). </p>
+<h3 id="c-evaluation-protocol">c- Evaluation protocol<a class="headerlink" href="#c-evaluation-protocol" title="Permanent link">&para;</a></h3>
+<p>Our evaluation protocol will be very basic:</p>
+<ul>
+<li><strong>fit</strong> a model to the data,</li>
+<li>apply the model to the same dataset to get <strong>predictions</strong></li>
+<li>compute <strong>accuracy</strong> using the CV-RMSE metric</li>
+</ul>
+<h2 id="example-solution">Example solution<a class="headerlink" href="#example-solution" title="Permanent link">&para;</a></h2>
+<h3 id="a-executing">a- Executing<a class="headerlink" href="#a-executing" title="Permanent link">&para;</a></h3>
+<h4 id="requirements"><em>Requirements</em><a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h4>
+<p>The files required to run this example are located in the <code>data_science_benchmark/</code> folder, available <a href="">here</a>.</p>
+<p>To use this code you have to install <code>pytest</code>, as well as two dependencies:</p>
+<ul>
+<li><a href="https://smarie.github.io/python-pytest-cases/">pytest-cases</a> to separate test code (the evaluation protocol) from test data (the datasets)</li>
+<li><a href="https://smarie.github.io/python-pytest-harvest/">pytest-harvest</a> to collect applicative results from all runs and create the final synthesis table</li>
+</ul>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; pip install pytest-cases
+&gt;&gt;&gt; pip install pytest-harvest
+</pre></div>
+
+
+<p>This example also requires <code>numpy</code> (for the <code>polyfit</code> method) and <code>pandas</code> (for synthesis table creation). </p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; <span class="o">[</span>conda/pip<span class="o">]</span> install pandas numpy
+</pre></div>
+
+
+<h4 id="first-run"><em>First run</em><a class="headerlink" href="#first-run" title="Permanent link">&para;</a></h4>
+<p>Go in the example's folder and execute pytest, either from your favorite IDE or using a commandline:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest data_science_benchmark/ -v
+</pre></div>
+
+
+<p>You should see 13 test executions:</p>
+<div class="codehilite"><pre><span></span>============================= test session starts =============================
+...
+collected 13 items 
+
+test_polyfit.py::test_poly_fit[polyfit(degree=1)-Anscombe&#39;s quartet 1] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe&#39;s quartet 1] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=1)-Anscombe&#39;s quartet 2] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe&#39;s quartet 2] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=1)-Anscombe&#39;s quartet 3] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe&#39;s quartet 3] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=1)-Anscombe&#39;s quartet 4] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe&#39;s quartet 4] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=1)-Data file &#39;contant-1.csv&#39;] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=2)-Data file &#39;contant-1.csv&#39;] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=1)-Data file &#39;v-shape.csv&#39;] PASSED
+test_polyfit.py::test_poly_fit[polyfit(degree=2)-Data file &#39;v-shape.csv&#39;] PASSED
+test_polyfit.py::test_synthesis PASSED
+
+========================== 13 passed in 0.67 seconds ==========================
+</pre></div>
+
+
+<p>You should also see a new file created: <code>polyfit_bench_results.csv</code>. This file contains the benchmark results table.</p>
+<h4 id="optional-summary-plot"><em>Optional: summary plot</em><a class="headerlink" href="#optional-summary-plot" title="Permanent link">&para;</a></h4>
+<p>If you install <code>matplotlib</code>, you will also see some synthesis plots:</p>
+<p><img alt="Results_bar_chart" src="../results/cvrmse_plot.png" /></p>
+<p>Note that the tests will end when you close the figure. See <a href="https://matplotlib.org/">matplotlib documentation</a> for details.</p>
+<h4 id="optional-tabulate"><em>Optional: tabulate</em><a class="headerlink" href="#optional-tabulate" title="Permanent link">&para;</a></h4>
+<p>If you install <code>tabulate</code> and enable the <code>-s</code> flag you will be able to see the table nicely printed in your console too:</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; pip install tabulate
+&gt;&gt;&gt; pytest data_science_benchmark/ -v -s
+</pre></div>
+
+
+<h4 id="optional-pytest-filtering"><em>Optional: pytest filtering</em><a class="headerlink" href="#optional-pytest-filtering" title="Permanent link">&para;</a></h4>
+<p>Since pytest is the engine used behind the scenes, there are a number of things you can do directly. For example you can run only a subset of all cases by using your IDE integration, or by using <a href="">pytest commandline filters or markers</a>. For example</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest data_science_benchmark/ -v -k <span class="s2">&quot;test_poly_fit[polyfit(degree=2)-Ansc&quot;</span>
+</pre></div>
+
+
+<p>Will only run the 4 following cases:</p>
+<div class="codehilite"><pre><span></span><span class="o">=============================</span> <span class="nb">test</span> session <span class="nv">starts</span> <span class="o">=============================</span>
+...
+collected <span class="m">13</span> items 
+
+test_polyfit.py::test_poly_fit<span class="o">[</span>polyfit<span class="o">(</span><span class="nv">degree</span><span class="o">=</span><span class="m">2</span><span class="o">)</span>-Anscombe<span class="s1">&#39;s quartet 1] PASSED</span>
+<span class="s1">test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe&#39;</span>s quartet <span class="m">2</span><span class="o">]</span> PASSED
+test_polyfit.py::test_poly_fit<span class="o">[</span>polyfit<span class="o">(</span><span class="nv">degree</span><span class="o">=</span><span class="m">2</span><span class="o">)</span>-Anscombe<span class="s1">&#39;s quartet 3] PASSED</span>
+<span class="s1">test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe&#39;</span>s quartet <span class="m">4</span><span class="o">]</span> <span class="nv">PASSED</span>
+
+<span class="o">=====</span> <span class="m">9</span> tests deselected by <span class="s1">&#39;-ktest_poly_fit[polyfit(degree=2)-Anscombe&#39;</span> <span class="o">======</span>
+<span class="o">===================</span> <span class="m">4</span> passed, <span class="m">9</span> deselected in <span class="m">0</span>.66 <span class="nv">seconds</span> <span class="o">====================</span>
+</pre></div>
+
+
+<h4 id="optional-pytest-profiling"><em>Optional: pytest profiling</em><a class="headerlink" href="#optional-pytest-profiling" title="Permanent link">&para;</a></h4>
+<p>Since pytest is the engine used behind the scenes, there are a number of plugins available! This one is a good example. Simply install <code>pytest-profiling</code> and execute the benchmark with the <code>--profile-svg</code> flag. Here we use a filter to focus on the "evaluation" nodes and skip the synthesis code that is less interesting to profile.</p>
+<div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest data_science_benchmark/ -v -k <span class="s2">&quot;test_poly_fit&quot;</span> --profile-svg
+</pre></div>
+
+
+<p>The extract of the generated <code>prof/combined.svg</code> file below shows that this can be a great help to understand where the challengers take time.</p>
+<p><img alt="Profiling_extract" src="../results/profiling_extract.png" /></p>
+<p>Here 53% of the total python execution time is spent inside the evaluation protocol <code>test_poly_fit</code>. The rest of the time is probably spent in pytest setup and teardown (including setup and teardown of our challenger and dataset fixtures). These 53% can be decomposed in </p>
+<ul>
+<li>34% for the fit method</li>
+<li>5% for the predict method</li>
+<li>2.81% for the cvrmse calculation, where most time is spent in the <code>np.mean</code> method (called twice per run).</li>
+</ul>
+<p>Note that <code>pytest-profiling</code> requires <code>graphviz</code> to be installed on your machine. You can install it using <code>conda install</code> if your python distribution is anaconda.</p>
+<div class="admonition note">
+<p class="admonition-title">Windows + anaconda users</p>
+<p>If you are in this configuration, you might find that the svg file is not generated even though no particular error is encountered. This is a known bug in pytest-profiling with already a proposed <a href="https://github.com/manahl/pytest-plugins/pull/99">solution</a>. Until they integrate the fix, you may wish to clone the proposed Pull Request branch on your local environment.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Pycharm + anaconda users</p>
+<p>If you are in this configuration and installed graphviz using conda, PyCharm might forget to add it to the system PATH. You have to do it manually. This is a known issue in <a href="https://youtrack.jetbrains.com/issue/PY-32408">PyCharm</a>.</p>
+</div>
+<h3 id="b-understanding-the-code">b- Understanding the code<a class="headerlink" href="#b-understanding-the-code" title="Permanent link">&para;</a></h3>
+<p>Our solution is made of three files:</p>
+<ul>
+<li><code>test_polyfit.py</code> contains the benchmark logic: the evaluation protocol and the synthesis table creation</li>
+<li><code>challengers_polyfit.py</code> contains the code to create the challengers: the two variants of <code>np.polyfit</code> with degree=1 and degree=2</li>
+<li><code>datasets_polyfit.py</code> contains the code to generate or parse (from csv files) the benchmark datasets</li>
+</ul>
+<p><img alt="Overview" src="../Overview_fig.png" /></p>
+<h4 id="evaluation-protocol"><em>Evaluation protocol</em><a class="headerlink" href="#evaluation-protocol" title="Permanent link">&para;</a></h4>
+<p>The first thing to do when creating a benchmark is to create the function that will evaluate each node (i.e. that will correspond to a single row in the results table). For this we create a pytest test function, that is, a function whose name starts with <code>test_</code>. <em>Note: the file name should also start with <code>test_</code>, that's a requirement from pytest.</em></p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_poly_fit</span><span class="p">(</span><span class="n">challenger</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">results_bag</span><span class="p">):</span>
+    <span class="c1"># Get the test case at hand</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">dataset</span>
+
+    <span class="c1"># Fit the model</span>
+    <span class="n">challenger</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># Use the model to perform predictions</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">challenger</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="c1"># Evaluate the prediction error</span>
+    <span class="n">cvrmse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">predictions</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">results_bag</span><span class="o">.</span><span class="n">cvrmse</span> <span class="o">=</span> <span class="n">cvrmse</span>
+</pre></div>
+
+
+<p>Now we need to tell pytest how to generate the three inputs:</p>
+<ul>
+<li>we need to collect and inject the <code>challenger</code> objects, that should implement both a <code>fit</code> and <code>predict</code> method</li>
+<li>we need to collect and inject the <code>dataset</code> objects, that should be tuples <code>(x, y)</code></li>
+<li>we need to collect and inject the <code>results_bag</code> objects, where we store our cv-rmse metric.</li>
+</ul>
+<p>We will perform all of this by relying on the same mechanism: <code>pytest</code> "fixtures". However that would require a significant amount of code so we rely on plugins to help us on the way. </p>
+<h4 id="challengers"><em>Challengers</em><a class="headerlink" href="#challengers" title="Permanent link">&para;</a></h4>
+<p>We create a <code>challenger</code> fixture, with a single parameter containing the degree to use in <code>np.polyfit</code>:</p>
+<div class="codehilite"><pre><span></span><span class="nd">@pytest.fixture</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">ids</span><span class="o">=</span><span class="s2">&quot;polyfit(degree={})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">challenger</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">PolyFitChallenger</span><span class="p">(</span><span class="n">degree</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In order to separate the challenger implementation code from the evaluation protocol, our <code>PolyFitChallenger</code> class is located in <code>challengers_polyfit.py</code>. It is made of two classes:</p>
+<ul>
+<li><strong>Interface</strong> - <code>BenchmarkChallenger</code> is the interface that all challengers should implement to enter the benchmark. Here we define that challengers should implement two methods : <code>fit</code> and <code>predict</code>.</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">BenchmarkChallenger</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div>
+
+
+<ul>
+<li><strong>Implementation</strong> - <code>PolyFitChallenger</code> is the class representing a <code>np.polyfit</code>-based challenger. This class provides a concrete implementation of <code>fit</code> and <code>predict</code>, based on numpy. It has one remaining parameter in the constructor: <code>degree</code>.</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">PolyFitChallenger</span><span class="p">(</span><span class="n">BenchmarkChallenger</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">degree</span> <span class="o">=</span> <span class="n">degree</span>
+
+    <span class="c1"># ... (implementation of `fit` and `predict`)</span>
+</pre></div>
+
+
+<h4 id="datasets"><em>Datasets</em><a class="headerlink" href="#datasets" title="Permanent link">&para;</a></h4>
+<p>We create a <code>dataset</code> fixture by leveraging <code>@cases_fixture</code> (from <code>pytest_cases</code>). This decorator allow us to easily parametrize a fixture from a variety of case functions located in a separate module.</p>
+<div class="codehilite"><pre><span></span><span class="nd">@cases_fixture</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="n">datasets_polyfit</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;session&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">dataset</span><span class="p">(</span><span class="n">case_data</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">case_data</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</pre></div>
+
+
+<p>All the code in charge to create the datasets is therefore located in the separate <code>datasets_polyfit.py</code> file. There are two main <em>case functions</em>:</p>
+<ul>
+<li>one to generate data <strong>from code</strong>. This function creates the 4 datasets known as Anscombe's quartet.</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="nd">@cases_generator</span><span class="p">(</span><span class="s2">&quot;Anscombe&#39;s quartet {i}&quot;</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">case_anscombe</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">8.04</span><span class="p">,</span> <span class="mf">6.95</span><span class="p">,</span> <span class="mf">7.58</span><span class="p">,</span> <span class="mf">8.81</span><span class="p">,</span> <span class="mf">8.33</span><span class="p">,</span> <span class="mf">9.96</span><span class="p">,</span> <span class="mf">7.24</span><span class="p">,</span> <span class="mf">4.26</span><span class="p">,</span> <span class="mf">10.84</span><span class="p">,</span> <span class="mf">4.82</span><span class="p">,</span> <span class="mf">5.68</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">13.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">9.14</span><span class="p">,</span> <span class="mf">8.14</span><span class="p">,</span> <span class="mf">8.74</span><span class="p">,</span> <span class="mf">8.77</span><span class="p">,</span> <span class="mf">9.26</span><span class="p">,</span> <span class="mf">8.10</span><span class="p">,</span> <span class="mf">6.13</span><span class="p">,</span> <span class="mf">3.10</span><span class="p">,</span> <span class="mf">9.13</span><span class="p">,</span> <span class="mf">7.26</span><span class="p">,</span> <span class="mf">4.74</span><span class="p">]</span>
+    <span class="o">...</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+</pre></div>
+
+
+<ul>
+<li>and another <strong>from csv files</strong> located in the <code>datasets/</code> folder.</li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="n">ALL_DATASET_FILES</span> <span class="o">=</span> <span class="p">[(</span><span class="n">DATASETS_DIR</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span> 
+                     <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">listdir</span><span class="p">(</span><span class="n">DATASETS_DIR</span><span class="p">)]</span>
+
+<span class="nd">@cases_generator</span><span class="p">(</span><span class="s2">&quot;Datafile &#39;{csv_file_path[1]}&#39;&quot;</span><span class="p">,</span> <span class="n">csv_file_path</span><span class="o">=</span><span class="n">ALL_DATASET_FILES</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">case_file</span><span class="p">(</span><span class="n">csv_file_path</span><span class="p">):</span>
+    <span class="n">my_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">csv_file_path</span><span class="p">),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">my_data</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">my_data</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>See <a href="https://smarie.github.io/python-pytest-cases/">pytest-cases documentation</a> for details.</p>
+<h4 id="results-bag"><em>Results bag</em><a class="headerlink" href="#results-bag" title="Permanent link">&para;</a></h4>
+<p>The <code>results_bag</code> fixture is created according to <a href="https://smarie.github.io/python-pytest-harvest/">pytest_harvest documentation</a>.</p>
+<h4 id="synthesis-table-creation"><em>Synthesis table creation</em><a class="headerlink" href="#synthesis-table-creation" title="Permanent link">&para;</a></h4>
+<p>If we run pytest at this stage, all combinations of <code>challenger</code>s and <code>dataset</code>s would be evaluated, and the <code>results_bag</code> of each execution would be stored in the global <code>store</code> fixture. To retrieve all results and create the final table we create an additional test that will require this <code>store</code> fixture and merge its contents with the contents available from pytest <code>session</code>: </p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_synthesis</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">store</span><span class="p">):</span>
+    <span class="c1"># Get session synthesis</span>
+    <span class="n">results_dct</span> <span class="o">=</span> <span class="n">get_session_synthesis_dct</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> 
+                                            <span class="nb">filter</span><span class="o">=</span><span class="n">test_poly_fit</span><span class="p">,</span>
+                                            <span class="n">durations_in_ms</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                            <span class="n">test_id_format</span><span class="o">=</span><span class="s1">&#39;function&#39;</span><span class="p">,</span> 
+                                            <span class="n">status_details</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                                            <span class="n">fixture_store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> 
+                                            <span class="n">flatten</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+                                            <span class="n">flatten_more</span><span class="o">=</span><span class="s1">&#39;results_bag&#39;</span><span class="p">)</span>
+
+    <span class="c1"># convert to a pandas dataframe</span>
+    <span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">results_dct</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+
+    <span class="o">...</span>
+</pre></div>
+
+
+<p>Note that according to <a href="https://smarie.github.io/python-pytest-harvest/">pytest_harvest documentation</a> there are many alternate places where you could put this code. I personally like it in a test, because it appears in the IDE pytest tree - but that is not a mandatory feature :) Our only true requirement here is that is runs after all the <code>test_poly_fit[...]</code> test nodes.</p>
+<h4 id="summary"><em>Summary</em><a class="headerlink" href="#summary" title="Permanent link">&para;</a></h4>
+<p>To sum-up, the code looks like this:</p>
+<p><img alt="Architecture" src="../Architecture.png" /></p>
+<h2 id="to-go-further">To go further<a class="headerlink" href="#to-go-further" title="Permanent link">&para;</a></h2>
+<p>There are a couple things that we could wish to do in real-world situations. We present below two of them that are included in the <code>data_science_benchmark_advanced/</code> example files, also available from <a href="">here</a>.</p>
+<p><strong>TODO continue</strong></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../.." title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../../changelog/" title="Changelog" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Changelog
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.b438e6c5.js"></script>
+      
+      <script>app.initialize({version:"0.17.3",url:{base:"../../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>
