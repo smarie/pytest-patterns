@@ -386,8 +386,7 @@
     c- Optional: summary plot
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#d-optional-tabulate" title="d- Optional: tabulate" class="md-nav__link">
@@ -407,11 +406,6 @@
   <a href="#f-optional-pytest-profiling" title="f- Optional: pytest profiling" class="md-nav__link">
     f- Optional: pytest profiling
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -618,8 +612,7 @@
     c- Optional: summary plot
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#d-optional-tabulate" title="d- Optional: tabulate" class="md-nav__link">
@@ -639,11 +632,6 @@
   <a href="#f-optional-pytest-profiling" title="f- Optional: pytest profiling" class="md-nav__link">
     f- Optional: pytest profiling
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -826,14 +814,14 @@ test_polyfit.py::test_synthesis PASSED
 <p>If you install <code>matplotlib</code>, you will also see some synthesis plots:</p>
 <p><img alt="Results_bar_chart" src="./results/cvrmse_plot.png" /></p>
 <p>Note that the tests will end when you close the figure. See <a href="https://matplotlib.org/">matplotlib documentation</a> for details.</p>
-<h4 id="d-optional-tabulate">d- Optional: tabulate<a class="headerlink" href="#d-optional-tabulate" title="Permanent link">&para;</a></h4>
+<h3 id="d-optional-tabulate">d- Optional: tabulate<a class="headerlink" href="#d-optional-tabulate" title="Permanent link">&para;</a></h3>
 <p>If you install <code>tabulate</code> and enable the <code>-s</code> flag you will be able to see the table nicely printed in your console too:</p>
 <div class="codehilite"><pre><span></span>&gt;&gt;&gt; pip install tabulate
 &gt;&gt;&gt; pytest data_science_benchmark/ -v -s
 </pre></div>
 
 
-<h4 id="e-optional-pytest-filtering">e- Optional: pytest filtering<a class="headerlink" href="#e-optional-pytest-filtering" title="Permanent link">&para;</a></h4>
+<h3 id="e-optional-pytest-filtering">e- Optional: pytest filtering<a class="headerlink" href="#e-optional-pytest-filtering" title="Permanent link">&para;</a></h3>
 <p>Since pytest is the engine used behind the scenes, there are a number of things you can do directly. For example you can run only a subset of all cases by using your IDE integration, or by using <a href="">pytest commandline filters or markers</a>. For example</p>
 <div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest data_science_benchmark/ -v -k <span class="s2">&quot;test_poly_fit[polyfit(degree=2)-Ansc&quot;</span>
 </pre></div>
@@ -854,7 +842,7 @@ test_polyfit.py::test_poly_fit<span class="o">[</span>polyfit<span class="o">(</
 </pre></div>
 
 
-<h4 id="f-optional-pytest-profiling">f- Optional: pytest profiling<a class="headerlink" href="#f-optional-pytest-profiling" title="Permanent link">&para;</a></h4>
+<h3 id="f-optional-pytest-profiling">f- Optional: pytest profiling<a class="headerlink" href="#f-optional-pytest-profiling" title="Permanent link">&para;</a></h3>
 <p>Since pytest is the engine used behind the scenes, there are a number of plugins available! This one is a good example. Simply install <code>pytest-profiling</code> and execute the benchmark with the <code>--profile-svg</code> flag. Here we use a filter to focus on the "evaluation" nodes and skip the synthesis code that is less interesting to profile.</p>
 <div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest data_science_benchmark/ -v -k <span class="s2">&quot;test_poly_fit&quot;</span> --profile-svg
 </pre></div>
