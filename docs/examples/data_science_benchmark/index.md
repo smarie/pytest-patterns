@@ -123,7 +123,7 @@ If you install `matplotlib`, you will also see some synthesis plots:
 
 Note that the tests will end when you close the figure. See [matplotlib documentation](https://matplotlib.org/) for details.
 
-#### d- Optional: tabulate
+### d- Optional: tabulate
 
 If you install `tabulate` and enable the `-s` flag you will be able to see the table nicely printed in your console too:
 
@@ -132,7 +132,7 @@ If you install `tabulate` and enable the `-s` flag you will be able to see the t
 >>> pytest data_science_benchmark/ -v -s
 ``` 
 
-#### e- Optional: pytest filtering
+### e- Optional: pytest filtering
 
 Since pytest is the engine used behind the scenes, there are a number of things you can do directly. For example you can run only a subset of all cases by using your IDE integration, or by using [pytest commandline filters or markers](). For example
 
@@ -156,7 +156,7 @@ test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 4] PASSED
 =================== 4 passed, 9 deselected in 0.66 seconds ====================
 ```
 
-#### f- Optional: pytest profiling
+### f- Optional: pytest profiling
 
 Since pytest is the engine used behind the scenes, there are a number of plugins available! This one is a good example. Simply install `pytest-profiling` and execute the benchmark with the `--profile-svg` flag. Here we use a filter to focus on the "evaluation" nodes and skip the synthesis code that is less interesting to profile.
 
