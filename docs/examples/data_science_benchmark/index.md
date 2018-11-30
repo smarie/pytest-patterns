@@ -6,7 +6,7 @@
 
 ### a- Research
 
-Most experimental data science papers nowadays include **results tables** at the end of the paper, where typically there is one entry per dataset per configuration to try (parameters). To produce these tables, we/our interns/our PhD students spend a significant amount of coding and debugging time that could be devoted to more interesting matters (such as focusing on improving the core algorithm itself).
+Most experimental data science papers nowadays include **results tables** at the end of the paper, where typically there is one entry per dataset per configuration to try (parameters). To produce these tables, we collectively spend a significant amount of coding and debugging time that could be devoted to more interesting matters (such as focusing on improving the core algorithms).
 
 ### b- Industry
 
@@ -59,11 +59,9 @@ Our evaluation protocol will be very basic:
  - apply the model to the same dataset to get **predictions**
  - compute **accuracy** using the CV-RMSE metric
 
-## Example solution
+## Executing the example
 
-### a- Executing
-
-#### *Requirements*
+### a- Requirements
 
 The files required to run this example are located in the `data_science_benchmark/` folder, available [here]().
 
@@ -83,7 +81,7 @@ This example also requires `numpy` (for the `polyfit` method) and `pandas` (for 
 >>> [conda/pip] install pandas numpy
 ```
 
-#### *First run*
+### b- First run
 
 Go in the example's folder and execute pytest, either from your favorite IDE or using a commandline:
 
@@ -117,7 +115,7 @@ test_polyfit.py::test_synthesis PASSED
 
 You should also see a new file created: `polyfit_bench_results.csv`. This file contains the benchmark results table.
 
-#### *Optional: summary plot*
+### c- Optional: summary plot
 
 If you install `matplotlib`, you will also see some synthesis plots:
 
@@ -125,7 +123,7 @@ If you install `matplotlib`, you will also see some synthesis plots:
 
 Note that the tests will end when you close the figure. See [matplotlib documentation](https://matplotlib.org/) for details.
 
-#### *Optional: tabulate*
+#### d- Optional: tabulate
 
 If you install `tabulate` and enable the `-s` flag you will be able to see the table nicely printed in your console too:
 
@@ -134,7 +132,7 @@ If you install `tabulate` and enable the `-s` flag you will be able to see the t
 >>> pytest data_science_benchmark/ -v -s
 ``` 
 
-#### *Optional: pytest filtering*
+#### e- Optional: pytest filtering
 
 Since pytest is the engine used behind the scenes, there are a number of things you can do directly. For example you can run only a subset of all cases by using your IDE integration, or by using [pytest commandline filters or markers](). For example
 
@@ -158,7 +156,7 @@ test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 4] PASSED
 =================== 4 passed, 9 deselected in 0.66 seconds ====================
 ```
 
-#### *Optional: pytest profiling*
+#### f- Optional: pytest profiling
 
 Since pytest is the engine used behind the scenes, there are a number of plugins available! This one is a good example. Simply install `pytest-profiling` and execute the benchmark with the `--profile-svg` flag. Here we use a filter to focus on the "evaluation" nodes and skip the synthesis code that is less interesting to profile.
 
@@ -185,7 +183,7 @@ Note that `pytest-profiling` requires `graphviz` to be installed on your machine
 !!! note "Pycharm + anaconda users"
     If you are in this configuration and installed graphviz using conda, PyCharm might forget to add it to the system PATH. You have to do it manually. This is a known issue in [PyCharm](https://youtrack.jetbrains.com/issue/PY-32408).
     
-### b- Understanding the code
+## Understanding the code
 
 Our solution is made of three files:
 
@@ -196,7 +194,7 @@ Our solution is made of three files:
 ![Overview](Overview_fig.png)
 
 
-#### *Evaluation protocol*
+### a- Evaluation protocol
 
 The first thing to do when creating a benchmark is to create the function that will evaluate each node (i.e. that will correspond to a single row in the results table). For this we create a pytest test function, that is, a function whose name starts with `test_`. *Note: the file name should also start with `test_`, that's a requirement from pytest.*
 
@@ -225,7 +223,7 @@ Now we need to tell pytest how to generate the three inputs:
 We will perform all of this by relying on the same mechanism: `pytest` "fixtures". However that would require a significant amount of code so we rely on plugins to help us on the way. 
 
 
-#### *Challengers*
+### b- Challengers
 
 We create a `challenger` fixture, with a single parameter containing the degree to use in `np.polyfit`:
 
@@ -258,7 +256,7 @@ class PolyFitChallenger(BenchmarkChallenger):
     # ... (implementation of `fit` and `predict`)
 ```
 
-#### *Datasets*
+### c- Datasets
 
 We create a `dataset` fixture by leveraging `@cases_fixture` (from `pytest_cases`). This decorator allow us to easily parametrize a fixture from a variety of case functions located in a separate module.
 
@@ -301,12 +299,12 @@ def case_file(csv_file_path):
 See [pytest-cases documentation](https://smarie.github.io/python-pytest-cases/) for details.
 
 
-#### *Results bag*
+### d- Results bag
 
 The `results_bag` fixture is created according to [pytest_harvest documentation](https://smarie.github.io/python-pytest-harvest/).
 
 
-#### *Synthesis table creation*
+#### e- Synthesis table creation
 
 If we run pytest at this stage, all combinations of `challenger`s and `dataset`s would be evaluated, and the `results_bag` of each execution would be stored in the global `store` fixture. To retrieve all results and create the final table we create an additional test that will require this `store` fixture and merge its contents with the contents available from pytest `session`: 
 
@@ -331,8 +329,8 @@ def test_synthesis(request, store):
 Note that according to [pytest_harvest documentation](https://smarie.github.io/python-pytest-harvest/) there are many alternate places where you could put this code. I personally like it in a test, because it appears in the IDE pytest tree - but that is not a mandatory feature :) Our only true requirement here is that is runs after all the `test_poly_fit[...]` test nodes.
 
 
-#### *Summary*
+### f- Summary
 
-To sum-up, the code looks like this:
+To sum-up, the code architecture looks like this:
 
 ![Architecture](Architecture.png)
