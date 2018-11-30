@@ -183,7 +183,7 @@ Note that `pytest-profiling` requires `graphviz` to be installed on your machine
 !!! note "Pycharm + anaconda users"
     If you are in this configuration and installed graphviz using conda, PyCharm might forget to add it to the system PATH. You have to do it manually. This is a known issue in [PyCharm](https://youtrack.jetbrains.com/issue/PY-32408).
     
-## Understanding the code
+## Code details
 
 Our solution is made of three files:
 
@@ -304,7 +304,7 @@ See [pytest-cases documentation](https://smarie.github.io/python-pytest-cases/) 
 The `results_bag` fixture is created according to [pytest_harvest documentation](https://smarie.github.io/python-pytest-harvest/).
 
 
-#### e- Synthesis table creation
+### e- Synthesis table creation
 
 If we run pytest at this stage, all combinations of `challenger`s and `dataset`s would be evaluated, and the `results_bag` of each execution would be stored in the global `store` fixture. To retrieve all results and create the final table we create an additional test that will require this `store` fixture and merge its contents with the contents available from pytest `session`: 
 
