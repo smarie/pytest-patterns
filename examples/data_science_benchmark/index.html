@@ -421,8 +421,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-the-code" title="Understanding the code" class="md-nav__link">
-    Understanding the code
+  <a href="#code-details" title="Code details" class="md-nav__link">
+    Code details
   </a>
   
     <nav class="md-nav">
@@ -454,18 +454,12 @@
     d- Results bag
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#e-synthesis-table-creation" title="e- Synthesis table creation" class="md-nav__link">
     e- Synthesis table creation
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -659,8 +653,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#understanding-the-code" title="Understanding the code" class="md-nav__link">
-    Understanding the code
+  <a href="#code-details" title="Code details" class="md-nav__link">
+    Code details
   </a>
   
     <nav class="md-nav">
@@ -692,18 +686,12 @@
     d- Results bag
   </a>
   
-    <nav class="md-nav">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#e-synthesis-table-creation" title="e- Synthesis table creation" class="md-nav__link">
     e- Synthesis table creation
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -889,7 +877,7 @@ test_polyfit.py::test_poly_fit<span class="o">[</span>polyfit<span class="o">(</
 <p class="admonition-title">Pycharm + anaconda users</p>
 <p>If you are in this configuration and installed graphviz using conda, PyCharm might forget to add it to the system PATH. You have to do it manually. This is a known issue in <a href="https://youtrack.jetbrains.com/issue/PY-32408">PyCharm</a>.</p>
 </div>
-<h2 id="understanding-the-code">Understanding the code<a class="headerlink" href="#understanding-the-code" title="Permanent link">&para;</a></h2>
+<h2 id="code-details">Code details<a class="headerlink" href="#code-details" title="Permanent link">&para;</a></h2>
 <p>Our solution is made of three files:</p>
 <ul>
 <li><code>test_polyfit.py</code> contains the benchmark logic: the evaluation protocol and the synthesis table creation</li>
@@ -996,7 +984,7 @@ test_polyfit.py::test_poly_fit<span class="o">[</span>polyfit<span class="o">(</
 <p>See <a href="https://smarie.github.io/python-pytest-cases/">pytest-cases documentation</a> for details.</p>
 <h3 id="d-results-bag">d- Results bag<a class="headerlink" href="#d-results-bag" title="Permanent link">&para;</a></h3>
 <p>The <code>results_bag</code> fixture is created according to <a href="https://smarie.github.io/python-pytest-harvest/">pytest_harvest documentation</a>.</p>
-<h4 id="e-synthesis-table-creation">e- Synthesis table creation<a class="headerlink" href="#e-synthesis-table-creation" title="Permanent link">&para;</a></h4>
+<h3 id="e-synthesis-table-creation">e- Synthesis table creation<a class="headerlink" href="#e-synthesis-table-creation" title="Permanent link">&para;</a></h3>
 <p>If we run pytest at this stage, all combinations of <code>challenger</code>s and <code>dataset</code>s would be evaluated, and the <code>results_bag</code> of each execution would be stored in the global <code>store</code> fixture. To retrieve all results and create the final table we create an additional test that will require this <code>store</code> fixture and merge its contents with the contents available from pytest <code>session</code>: </p>
 <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_synthesis</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">store</span><span class="p">):</span>
     <span class="c1"># Get session synthesis</span>
