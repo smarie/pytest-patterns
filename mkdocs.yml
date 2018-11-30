@@ -4,7 +4,7 @@ repo_url: https://github.com/smarie/pytest-patterns
 pages:
     - Home: index.md
     - Examples:
-      - Data science benchmark: examples/data_science_benchmark/description.md
+      - Data science benchmark: examples/data_science_benchmark/index.md
     - Changelog: changelog.md
 theme: material  # readthedocs  mkdocs
 
