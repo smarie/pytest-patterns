@@ -769,7 +769,7 @@
 <p>Then one finds out that it is a bit more complex to develop. And by taking a step back we find that <code>pytest</code> and its ecosystem (<code>pytest-profile</code>, <code>pytest-logging</code>, <code>pytest-xdist</code>...) <strong>already provide all of this</strong> (plus a nice integration in your IDE) !</p>
 <h2 id="example-description">Example description<a class="headerlink" href="#example-description" title="Permanent link">&para;</a></h2>
 <p>In this simple example we will benchmark the <code>np.polyfit</code> function, that fits polynomial functions. Our benchmark activity is described by three axis of variability: <em>challengers</em> (this encompasses both variability in algorithms and parameters), <em>datasets</em>, and <em>evaluation protocol</em>.</p>
-<p>You can download all the python scripts from this example <a href="">here</a>.</p>
+<p>You can download all the python scripts from this example <a href="https://github.com/smarie/pytest-patterns/releases/latest">here</a>.</p>
 <h3 id="a-challengers">a- Challengers<a class="headerlink" href="#a-challengers" title="Permanent link">&para;</a></h3>
 <p>The <code>polyfit</code> function has a <code>degree</code> parameter allowing to restrict the polynomial order of the function. We will compare two configurations: </p>
 <ul>
@@ -793,10 +793,10 @@
 <h3 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h3>
 <p>To sum-up, we would like to execute all experiments described in the following plots (one plot per dataset):</p>
 <p><img alt="Results_plots_advanced" src="./advanced/results/benchmark_plots2.png" /></p>
-<p>Note: these plots have been generated with the "advanced" data science benchmark <a href="./todo">example</a>.</p>
+<p>Note: these plots have been generated with the "advanced" data science benchmark <a href="./advanced">example</a>.</p>
 <h2 id="executing-the-example">Executing the example<a class="headerlink" href="#executing-the-example" title="Permanent link">&para;</a></h2>
 <h3 id="a-requirements">a- Requirements<a class="headerlink" href="#a-requirements" title="Permanent link">&para;</a></h3>
-<p>The files required to run this example are located in the <code>data_science_benchmark/</code> folder, available <a href="">here</a>.</p>
+<p>The files required to run this example are located in the <code>data_science_benchmark/</code> folder, available <a href="https://github.com/smarie/pytest-patterns/releases/latest">here</a>.</p>
 <p>To use this code you have to install <code>pytest</code>, as well as two dependencies:</p>
 <ul>
 <li><a href="https://smarie.github.io/python-pytest-cases/">pytest-cases</a> to separate test code (the evaluation protocol) from test data (the datasets)</li>
@@ -854,7 +854,7 @@ test_polyfit.py::test_synthesis PASSED
 
 
 <h3 id="e-optional-pytest-filtering">e- Optional: pytest filtering<a class="headerlink" href="#e-optional-pytest-filtering" title="Permanent link">&para;</a></h3>
-<p>Since pytest is the engine used behind the scenes, there are a number of things you can do directly. For example you can run only a subset of all cases by using your IDE integration, or by using <a href="">pytest commandline filters or markers</a>. For example</p>
+<p>Since pytest is the engine used behind the scenes, there are a number of things you can do directly. For example you can run only a subset of all cases by using your IDE integration, or by using <a href="https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests">pytest commandline filters or markers</a>. For example</p>
 <div class="codehilite"><pre><span></span>&gt;&gt;&gt; pytest data_science_benchmark/ -v -k <span class="s2">&quot;test_poly_fit[polyfit(degree=2)-Ansc&quot;</span>
 </pre></div>
 
