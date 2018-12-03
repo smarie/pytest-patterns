@@ -59,6 +59,14 @@ Our evaluation protocol will be very basic:
  - apply the model to the same dataset to get **predictions**
  - compute **accuracy** using the CV-RMSE metric
 
+### Summary
+
+To sum-up, we would like to execute all experiments described in the following plots (one plot per dataset):
+
+![Results_plots_advanced](advanced/results/benchmark_plots2.png)
+
+Note: these plots have been generated with the "advanced" data science benchmark [example](todo).
+
 ## Executing the example
 
 ### a- Requirements
@@ -156,6 +164,8 @@ test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 4] PASSED
 =================== 4 passed, 9 deselected in 0.66 seconds ====================
 ```
 
+This might be particularly interesting to debug particular cases, or to perform *profiling* on only a subset (see below).
+
 ### f- Optional: pytest profiling
 
 Since pytest is the engine used behind the scenes, there are a number of plugins available! This one is a good example. Simply install `pytest-profiling` and execute the benchmark with the `--profile-svg` flag. Here we use a filter to focus on the "evaluation" nodes and skip the synthesis code that is less interesting to profile.
@@ -183,6 +193,10 @@ Note that `pytest-profiling` requires `graphviz` to be installed on your machine
 !!! note "Pycharm + anaconda users"
     If you are in this configuration and installed graphviz using conda, PyCharm might forget to add it to the system PATH. You have to do it manually. This is a known issue in [PyCharm](https://youtrack.jetbrains.com/issue/PY-32408).
     
+### g- Optional: pytest logging
+
+**TODO** explain how to use `pytest-logger` to generate one log file per test node.
+
 ## Code details
 
 Our solution is made of three files:
