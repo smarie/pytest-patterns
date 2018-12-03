@@ -33,7 +33,7 @@ Then one finds out that it is a bit more complex to develop. And by taking a ste
 
 In this simple example we will benchmark the `np.polyfit` function, that fits polynomial functions. Our benchmark activity is described by three axis of variability: *challengers* (this encompasses both variability in algorithms and parameters), *datasets*, and *evaluation protocol*.
 
-You can download all the python scripts from this example [here]().
+You can download all the python scripts from this example [here](https://github.com/smarie/pytest-patterns/releases/latest).
 
 ### a- Challengers
 
@@ -65,13 +65,13 @@ To sum-up, we would like to execute all experiments described in the following p
 
 ![Results_plots_advanced](advanced/results/benchmark_plots2.png)
 
-Note: these plots have been generated with the "advanced" data science benchmark [example](todo).
+Note: these plots have been generated with the "advanced" data science benchmark [example](./advanced).
 
 ## Executing the example
 
 ### a- Requirements
 
-The files required to run this example are located in the `data_science_benchmark/` folder, available [here]().
+The files required to run this example are located in the `data_science_benchmark/` folder, available [here](https://github.com/smarie/pytest-patterns/releases/latest).
 
 To use this code you have to install `pytest`, as well as two dependencies:
 
@@ -142,7 +142,7 @@ If you install `tabulate` and enable the `-s` flag you will be able to see the t
 
 ### e- Optional: pytest filtering
 
-Since pytest is the engine used behind the scenes, there are a number of things you can do directly. For example you can run only a subset of all cases by using your IDE integration, or by using [pytest commandline filters or markers](). For example
+Since pytest is the engine used behind the scenes, there are a number of things you can do directly. For example you can run only a subset of all cases by using your IDE integration, or by using [pytest commandline filters or markers](https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests). For example
 
 ```bash
 >>> pytest data_science_benchmark/ -v -k "test_poly_fit[polyfit(degree=2)-Ansc"

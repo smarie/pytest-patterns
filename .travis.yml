@@ -80,6 +80,9 @@ after_success:
   # ---grant the possibility to push on the repo---
   - openssl aes-256-cbc -K $encrypted_142bf2245ee5_key -iv $encrypted_142bf2245ee5_iv -in ci_tools/github_travis_rsa.enc -out ci_tools/github_travis_rsa -d
 
+  # Create a tar.gz archive
+  - cd pytest_patterns; tar --exclude='_*' -cvzf ../all_examples.tar.gz *; cd ..
+
   # If the output file does not exist, that is because the secret is invalid. This can happen in forked repos so do not fail the build
   - |
     if [ -s "ci_tools/github_travis_rsa" ]; then
@@ -113,7 +116,7 @@ deploy:
 
   # Create a github release on tags
   - provider: script
-    script: python ci_tools/github_release.py -s $GITHUB_TOKEN --repo-slug smarie/pytest-patterns -cf ./docs/changelog.md -d https://smarie.github.io/pytest-patterns/changelog/ $TRAVIS_TAG
+    script: python ci_tools/github_release.py -s $GITHUB_TOKEN --repo-slug smarie/pytest-patterns -cf ./docs/changelog.md -d https://smarie.github.io/pytest-patterns/changelog/ -df all_examples.tar.gz $TRAVIS_TAG
     skip_cleanup: true
     on:
       tags: true
