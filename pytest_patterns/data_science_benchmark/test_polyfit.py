@@ -8,8 +8,8 @@ from pytest_cases import cases_fixture
 from pytest_harvest import get_session_synthesis_dct, create_results_bag_fixture
 from pytest_harvest.results_bags import ResultsBag
 
-from pytest_patterns.data_science_benchmark.challengers_polyfit import PolyFitChallenger
-from pytest_patterns.data_science_benchmark import datasets_polyfit
+from .challengers_polyfit import PolyFitChallenger
+from . import datasets_polyfit
 
 
 # ------------ The two challengers ----------
