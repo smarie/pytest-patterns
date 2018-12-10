@@ -37,17 +37,6 @@ def dataset(case_data):
     return x, y
 
 
-# ------------- To collect benchmark results ------------
-@pytest.fixture(autouse=True, scope='session')
-def store():
-    """The store where we will put our results_bag fixture"""
-    return OrderedDict()
-
-
-results_bag = create_results_bag_fixture('store', name='results_bag')
-"""The fixture where we will put all our benchmark results"""
-
-
 # ------------- To evaluate the algorithms ------------
 def test_poly_fit(challenger, dataset, results_bag):
     """
@@ -76,36 +65,29 @@ test_poly_fit(PolyFitChallenger(degree=1), (np.arange(10), np.arange(10)), Resul
 
 
 # ------------- To create the final benchmark table ------------
-def test_synthesis(request, store):
+def test_synthesis(module_results_df):
     """
     Creates the benchmark synthesis table
     Note: we could do this at many other places (hook, teardown of a session-scope fixture...)
     as explained in `pytest-harvest` plugin
     """
 
-    # Get session synthesis filtered on the test function of interest, combined with our store
-    results_dct = get_session_synthesis_dct(request.session, filter=test_poly_fit,
-                                            durations_in_ms=True, test_id_format='function', status_details=False,
-                                            fixture_store=store, flatten=True, flatten_more='results_bag')
+    # rename columns and only keep useful information
+    module_results_df = module_results_df.rename(columns={'challenger_param': 'degree', 'dataset_param': 'dataset'})
+    module_results_df['challenger'] = module_results_df['model'].map(str)
+    module_results_df = module_results_df[['dataset', 'challenger', 'degree', 'status', 'duration_ms', 'cvrmse']]
 
-    # convert to a pandas dataframe
-    results_df = pd.DataFrame.from_dict(results_dct, orient='index')
-    results_df = results_df.loc[list(results_dct.keys()), :]          # fix rows order
-    results_df.index.name = 'test_id'                                 # set index name
-    results_df.drop(['pytest_obj'], axis=1, inplace=True)             # drop pytest object column
-    results_df = results_df.apply(lambda s: s.astype("category") if s.dtype == 'object' else s)  # convert all to categorical
+    # convert all to categorical
+    module_results_df = module_results_df.apply(lambda s: s.astype("category") if s.dtype == 'object' else s)
 
     # print to csv
-    results_df = results_df.rename(columns={'challenger': 'degree'})
-    results_df['challenger'] = results_df['model'].astype("object").map(str)
-    results_df = results_df[['dataset', 'challenger', 'degree', 'status', 'duration_ms', 'cvrmse']]
     # print("\n" + results_df.to_csv(sep=';', decimal=','))
-    results_df.to_csv("polyfit_bench_results.csv", sep=';', decimal=',')
+    module_results_df.to_csv("polyfit_bench_results.csv", sep=';', decimal=',')
 
     # print to markdown-like (requires tabulate)
     try:
         from tabulate import tabulate
-        print("\n" + tabulate(results_df, headers='keys', tablefmt='pipe'))
+        print("\n" + tabulate(module_results_df, headers='keys', tablefmt='pipe'))
         tabulate_is_available = True
     except ImportError as e:
         tabulate_is_available = False
@@ -113,7 +95,7 @@ def test_synthesis(request, store):
     # plot (requires matplotlib)
     try:
         import matplotlib.pyplot as plt
-        cvrmse_df = results_df.pivot(index='dataset', columns='challenger', values='cvrmse')
+        cvrmse_df = module_results_df.pivot(index='dataset', columns='challenger', values='cvrmse')
         ax = cvrmse_df.plot.bar()
         ax.set_ylabel("cvrmse")
         plt.xticks(plt.xticks()[0], plt.xticks()[1], rotation=30, ha='right')
@@ -123,7 +105,7 @@ def test_synthesis(request, store):
         pass
 
     # summarize results by challenger
-    summary_df = results_df.groupby('degree', axis=0).agg({'duration_ms': ['mean', 'std'], 'cvrmse': ['mean', 'std']})
+    summary_df = module_results_df.groupby('degree', axis=0).agg({'duration_ms': ['mean', 'std'], 'cvrmse': ['mean', 'std']})
     # print("\n" + summary_df.to_csv(sep=';', decimal=','))
     if tabulate_is_available:
         print("\n" + tabulate(summary_df, headers='keys'))
