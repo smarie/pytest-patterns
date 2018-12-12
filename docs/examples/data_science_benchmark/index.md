@@ -1,5 +1,7 @@
 # Data science benchmark example
 
+*Do you like [DrivenData](https://www.drivendata.org/competitions/) or [Kaggle](https://www.kaggle.com/competitions) competitions ? Would you like to be able to reproduce some of them locally ? Let's see how you can do this in minutes with pytest and a few plugins.*
+
 ![Results_table](results/results_table.png)
 
 ## Motivation
