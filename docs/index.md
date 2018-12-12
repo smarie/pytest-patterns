@@ -2,13 +2,13 @@
 
 [![Build Status](https://travis-ci.org/smarie/pytest-patterns.svg?branch=master)](https://travis-ci.org/smarie/pytest-patterns) [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://smarie.github.io/pytest-patterns/)
 
-A couple of examples showing how to use core `pytest` mechanisms and existing plugins (no additional hooks nor hacks) to solve real-world problems. In other words:
- 
-    "pytest for humans ;)"
+A couple of examples showing how to use core `pytest` mechanisms and existing plugins (no additional hooks nor hacks) to solve real-world problems.
 
 `pytest` is great but it is extremely generic: thanks to its core `fixture` and `parametrize` concepts, the possibilities are almost infinite! The purpose of this project is to provide examples of a few of these possibilities, so that you do not need to spend hours designing your tests when your needs fall into "classical needs". 
 
 ## Current list of examples
+
+Currently there is a single example, but you've got to start somewhere, right ? ;)
 
  * [Data science benchmark](./examples/data_science_benchmark/) demonstrates how pytest can be used as a benchmarking engine to compare the performances of several data sciences algorithms on several datasets and produce a report table. This example also shows how plots can be integrated in pytest.
 
