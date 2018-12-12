@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/smarie/pytest-patterns.svg?branch=master)](https://travis-ci.org/smarie/pytest-patterns) [![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://smarie.github.io/pytest-patterns/)
 
-A couple of examples showing how to use core `pytest` mechanisms and existing plugins (no hooks nor hacks) to solve real-world problems. In other words:
+A couple of examples showing how to use core `pytest` mechanisms and existing plugins (no additional hooks or hacks) to solve real-world problems. In other words:
  
     "pytest for humans ;)"
 
