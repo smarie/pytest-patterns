@@ -315,27 +315,25 @@ See [pytest-cases documentation](https://smarie.github.io/python-pytest-cases/) 
 
 ### d- Results bag
 
-The `results_bag` fixture is created according to [pytest_harvest documentation](https://smarie.github.io/python-pytest-harvest/).
+The `results_bag` fixture is automatically created when you install `pytest-harvest`, according to [pytest_harvest documentation](https://smarie.github.io/python-pytest-harvest/). So we have nothing particular to do.
 
 
 ### e- Synthesis table creation
 
-If we run pytest at this stage, all combinations of `challenger`s and `dataset`s would be evaluated, and the `results_bag` of each execution would be stored in the global `store` fixture. To retrieve all results and create the final table we create an additional test that will require this `store` fixture and merge its contents with the contents available from pytest `session`: 
+If we run pytest at this stage, all combinations of `challenger`s and `dataset`s would be evaluated, and the `results_bag` of each execution would be stored in the global `fixture_store` fixture. 
+
+To retrieve all results and make the final table we simply create an additional test using the `module_results_df` fixture. We can then edit that table according to our display preferences: 
 
 ```python
-def test_synthesis(request, store):
-    # Get session synthesis
-    results_dct = get_session_synthesis_dct(request.session, 
-                                            filter=test_poly_fit,
-                                            durations_in_ms=True,
-                                            test_id_format='function', 
-                                            status_details=False,
-                                            fixture_store=store, 
-                                            flatten=True, 
-                                            flatten_more='results_bag')
-
-    # convert to a pandas dataframe
-    results_df = pd.DataFrame.from_dict(results_dct, orient='index')
+def test_synthesis(module_results_df):
+    # `module_results_df` already contains everything at this point.
+    
+    # For display we rename columns and only keep useful information
+    module_results_df = module_results_df.rename(columns={'challenger_param': 'degree', 
+                                                          'dataset_param': 'dataset'})
+    module_results_df['challenger'] = module_results_df['model'].map(str)
+    module_results_df = module_results_df[['dataset', 'challenger', 'degree', 
+                                           'status', 'duration_ms', 'cvrmse']]
     
     ...
 ```
