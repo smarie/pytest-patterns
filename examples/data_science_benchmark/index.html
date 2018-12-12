@@ -1006,22 +1006,19 @@ test_polyfit.py::test_poly_fit<span class="o">[</span>polyfit<span class="o">(</
 
 <p>See <a href="https://smarie.github.io/python-pytest-cases/">pytest-cases documentation</a> for details.</p>
 <h3 id="d-results-bag">d- Results bag<a class="headerlink" href="#d-results-bag" title="Permanent link">&para;</a></h3>
-<p>The <code>results_bag</code> fixture is created according to <a href="https://smarie.github.io/python-pytest-harvest/">pytest_harvest documentation</a>.</p>
+<p>The <code>results_bag</code> fixture is automatically created when you install <code>pytest-harvest</code>, according to <a href="https://smarie.github.io/python-pytest-harvest/">pytest_harvest documentation</a>. So we have nothing particular to do.</p>
 <h3 id="e-synthesis-table-creation">e- Synthesis table creation<a class="headerlink" href="#e-synthesis-table-creation" title="Permanent link">&para;</a></h3>
-<p>If we run pytest at this stage, all combinations of <code>challenger</code>s and <code>dataset</code>s would be evaluated, and the <code>results_bag</code> of each execution would be stored in the global <code>store</code> fixture. To retrieve all results and create the final table we create an additional test that will require this <code>store</code> fixture and merge its contents with the contents available from pytest <code>session</code>: </p>
-<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_synthesis</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">store</span><span class="p">):</span>
-    <span class="c1"># Get session synthesis</span>
-    <span class="n">results_dct</span> <span class="o">=</span> <span class="n">get_session_synthesis_dct</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">,</span> 
-                                            <span class="nb">filter</span><span class="o">=</span><span class="n">test_poly_fit</span><span class="p">,</span>
-                                            <span class="n">durations_in_ms</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                                            <span class="n">test_id_format</span><span class="o">=</span><span class="s1">&#39;function&#39;</span><span class="p">,</span> 
-                                            <span class="n">status_details</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                                            <span class="n">fixture_store</span><span class="o">=</span><span class="n">store</span><span class="p">,</span> 
-                                            <span class="n">flatten</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
-                                            <span class="n">flatten_more</span><span class="o">=</span><span class="s1">&#39;results_bag&#39;</span><span class="p">)</span>
+<p>If we run pytest at this stage, all combinations of <code>challenger</code>s and <code>dataset</code>s would be evaluated, and the <code>results_bag</code> of each execution would be stored in the global <code>fixture_store</code> fixture. </p>
+<p>To retrieve all results and make the final table we simply create an additional test using the <code>module_results_df</code> fixture. We can then edit that table according to our display preferences: </p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">test_synthesis</span><span class="p">(</span><span class="n">module_results_df</span><span class="p">):</span>
+    <span class="c1"># `module_results_df` already contains everything at this point.</span>
 
-    <span class="c1"># convert to a pandas dataframe</span>
-    <span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">results_dct</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+    <span class="c1"># For display we rename columns and only keep useful information</span>
+    <span class="n">module_results_df</span> <span class="o">=</span> <span class="n">module_results_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;challenger_param&#39;</span><span class="p">:</span> <span class="s1">&#39;degree&#39;</span><span class="p">,</span> 
+                                                          <span class="s1">&#39;dataset_param&#39;</span><span class="p">:</span> <span class="s1">&#39;dataset&#39;</span><span class="p">})</span>
+    <span class="n">module_results_df</span><span class="p">[</span><span class="s1">&#39;challenger&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">module_results_df</span><span class="p">[</span><span class="s1">&#39;model&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">module_results_df</span> <span class="o">=</span> <span class="n">module_results_df</span><span class="p">[[</span><span class="s1">&#39;dataset&#39;</span><span class="p">,</span> <span class="s1">&#39;challenger&#39;</span><span class="p">,</span> <span class="s1">&#39;degree&#39;</span><span class="p">,</span> 
+                                           <span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;duration_ms&#39;</span><span class="p">,</span> <span class="s1">&#39;cvrmse&#39;</span><span class="p">]]</span>
 
     <span class="o">...</span>
 </pre></div>
