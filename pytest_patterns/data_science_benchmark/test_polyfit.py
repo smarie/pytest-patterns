@@ -1,11 +1,7 @@
-from collections import OrderedDict
-
 import numpy as np
-import pandas as pd
 
 import pytest
 from pytest_cases import cases_fixture
-from pytest_harvest import get_session_synthesis_dct, create_results_bag_fixture
 from pytest_harvest.results_bags import ResultsBag
 
 from .challengers_polyfit import PolyFitChallenger
@@ -71,41 +67,49 @@ def test_synthesis(module_results_df):
     Note: we could do this at many other places (hook, teardown of a session-scope fixture...)
     as explained in `pytest-harvest` plugin
     """
-
+    # ----------- (1) `module_results_df` contains the raw (12 rows) table -----------
     # rename columns and only keep useful information
     module_results_df = module_results_df.rename(columns={'challenger_param': 'degree', 'dataset_param': 'dataset'})
-    module_results_df['challenger'] = module_results_df['model'].map(str)
+    module_results_df['challenger'] = module_results_df['model'].map(str)  # only keep the string representation
     module_results_df = module_results_df[['dataset', 'challenger', 'degree', 'status', 'duration_ms', 'cvrmse']]
 
-    # convert all to categorical
-    module_results_df = module_results_df.apply(lambda s: s.astype("category") if s.dtype == 'object' else s)
-
-    # print to csv
-    # print("\n" + results_df.to_csv(sep=';', decimal=','))
+    # write to csv
     module_results_df.to_csv("polyfit_bench_results.csv", sep=';', decimal=',')
 
-    # print to markdown-like (requires tabulate)
+    # pretty-print (requires tabulate)
     try:
         from tabulate import tabulate
         print("\n" + tabulate(module_results_df, headers='keys', tablefmt='pipe'))
-        tabulate_is_available = True
-    except ImportError as e:
-        tabulate_is_available = False
+    except ImportError:
+        pass
 
-    # plot (requires matplotlib)
+    # ----------- (2) graphical synthesis: bar chart (requires matplotlib)------------
     try:
         import matplotlib.pyplot as plt
-        cvrmse_df = module_results_df.pivot(index='dataset', columns='challenger', values='cvrmse')
+
+        # convert all to categorical so that we can pivot
+        module_results_df = module_results_df.apply(lambda s: s.astype("category") if s.dtype == 'object' else s)
+
+        cvrmse_df = module_results_df[['dataset', 'challenger', 'cvrmse']].pivot(index='dataset',
+                                                                                 columns='challenger',
+                                                                                 values='cvrmse')
+
         ax = cvrmse_df.plot.bar()
         ax.set_ylabel("cvrmse")
         plt.xticks(plt.xticks()[0], plt.xticks()[1], rotation=30, ha='right')
         plt.subplots_adjust(left=0.20, bottom=0.25)
+        print("Close the plots to continue...")
         plt.show()
-    except ImportError as e:
+    except ImportError:
         pass
 
-    # summarize results by challenger
-    summary_df = module_results_df.groupby('degree', axis=0).agg({'duration_ms': ['mean', 'std'], 'cvrmse': ['mean', 'std']})
-    # print("\n" + summary_df.to_csv(sep=';', decimal=','))
-    if tabulate_is_available:
+    # ----------- (3) summarizing the results further - by challenger --------------
+    summary_df = module_results_df[['degree', 'duration_ms', 'cvrmse']].groupby('degree', axis=0).agg({
+        'duration_ms': ['mean', 'std'],
+        'cvrmse': ['mean', 'std']
+    })
+    # pretty-print (requires tabulate)
+    try:
         print("\n" + tabulate(summary_df, headers='keys'))
+    except NameError:
+        pass
