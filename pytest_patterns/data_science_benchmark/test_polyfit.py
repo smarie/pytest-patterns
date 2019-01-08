@@ -21,7 +21,8 @@ def challenger(request):
 @cases_fixture(module=datasets_polyfit, scope='session')
 def dataset(case_data):
     """
-    A fixture collecting all 'cases' (datasets) in `datasets_polyfit`.
+    A fixture collecting all datasets declared by module `datasets_polyfit`.
+    Some are generated and some others are loaded from files in ./datasets/ folder.
 
     Note: we use "scope=session" so that this method is called only once per case.
     This ensures that each file is read once. We could reach the same result by using
@@ -57,7 +58,9 @@ def test_poly_fit(challenger, dataset, results_bag):
 
 
 # To make sure that the benchmark is not biased by import times on the first run, we perform a first run here
-test_poly_fit(PolyFitChallenger(degree=1), (np.arange(10), np.arange(10)), ResultsBag())
+test_poly_fit(challenger=PolyFitChallenger(degree=1),
+              dataset=(np.arange(10), np.arange(10)),
+              results_bag=ResultsBag())
 
 
 # ------------- To create the final benchmark table ------------
@@ -69,7 +72,8 @@ def test_synthesis(module_results_df):
     """
     # ----------- (1) `module_results_df` contains the raw (12 rows) table -----------
     # rename columns and only keep useful information
-    module_results_df = module_results_df.rename(columns={'challenger_param': 'degree', 'dataset_param': 'dataset'})
+    module_results_df = rename_with_checks(module_results_df, columns={'challenger_param': 'degree',
+                                                                       'dataset__case_data_param': 'dataset'})
     module_results_df['challenger'] = module_results_df['model'].map(str)  # only keep the string representation
     module_results_df = module_results_df[['dataset', 'challenger', 'degree', 'status', 'duration_ms', 'cvrmse']]
 
@@ -113,3 +117,14 @@ def test_synthesis(module_results_df):
         print("\n" + tabulate(summary_df, headers='keys'))
     except NameError:
         pass
+
+
+def rename_with_checks(df, columns, **kwargs):
+    """
+    Same than df.rename(columns=<columns>, **kwargs) but checks that columns exist before executing.
+    """
+    missing = set(columns.keys()).difference(set(df.columns))
+    if len(missing) > 0:
+        raise ValueError("Missing columns: %s" % missing)
+
+    return df.rename(columns=columns, **kwargs)
