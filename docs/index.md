@@ -8,10 +8,10 @@ A couple of examples showing how to use core `pytest` mechanisms and existing pl
 
 ## Current list of examples
 
-Currently there is a single example, but you've got to start somewhere, right ? ;)
+The following examples are provided:
 
- * [Data science benchmark](./examples/data_science_benchmark/) demonstrates how pytest can be used as a benchmarking engine to compare the performances of several data sciences algorithms on several datasets and produce a report table. This example also shows how plots can be integrated in pytest.
-
+ * [Data science benchmark](./examples/data_science_benchmark/) demonstrates how pytest can be used as a benchmarking engine to compare the performances of several data sciences algorithms on several datasets and produce various reports (plots, csv table...).
+ 
 Note: you can download all examples at once from [this link](https://github.com/smarie/pytest-patterns/releases/latest)
 
 ## See Also

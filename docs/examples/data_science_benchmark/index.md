@@ -106,24 +106,34 @@ You should see 13 test executions:
 ...
 collected 13 items 
 
-test_polyfit.py::test_poly_fit[polyfit(degree=1)-Anscombe's quartet 1] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 1] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=1)-Anscombe's quartet 2] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 2] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=1)-Anscombe's quartet 3] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 3] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=1)-Anscombe's quartet 4] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 4] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=1)-Data file 'contant-1.csv'] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=2)-Data file 'contant-1.csv'] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=1)-Data file 'v-shape.csv'] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=2)-Data file 'v-shape.csv'] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=1-anscombes_quartet-id=1] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=2-anscombes_quartet-id=1] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=1-anscombes_quartet-id=2] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=2-anscombes_quartet-id=2] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=1-anscombes_quartet-id=3] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=2-anscombes_quartet-id=3] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=1-anscombes_quartet-id=4] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=2-anscombes_quartet-id=4] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=1-csvfile-contant-1] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=2-csvfile-contant-1] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=1-csvfile-v-shape] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=2-csvfile-v-shape] PASSED
 test_polyfit.py::test_synthesis PASSED
 
 ========================== 13 passed in 0.67 seconds ==========================
 ```
 
-You should also see a new file created: `polyfit_bench_results.csv`. This file contains the benchmark results table.
+You should also see
+
+ - a new folder created: `logs/`, containing one log file for each test run, for example `test_poly_fit[polyfit-degree=1-anscombes_quartet-id=1].log`:
+
+```
+INFO     algo:test_polyfit.py:47 fitting model
+INFO     algo:test_polyfit.py:52 predicting
+INFO     algo:test_polyfit.py:56 evaluating error
+```
+
+ - a new file created: `polyfit_bench_results.csv`. This file contains the benchmark results table. There are 12 rows corresponding to {2 challengers} x {6 datasets}.
 
 ### c- Optional: summary plot
 
@@ -147,7 +157,7 @@ If you install `tabulate` and enable the `-s` flag you will be able to see the t
 Since pytest is the engine used behind the scenes, there are a number of things you can do directly. For example you can run only a subset of all cases by using your IDE integration, or by using [pytest commandline filters or markers](https://docs.pytest.org/en/latest/usage.html#specifying-tests-selecting-tests). For example
 
 ```bash
->>> pytest data_science_benchmark/ -v -k "test_poly_fit[polyfit(degree=2)-Ansc"
+>>> pytest data_science_benchmark/ -v -k "test_poly_fit[polyfit-degree=2-ansc"
 ```
 
 Will only run the 4 following cases:
@@ -157,13 +167,13 @@ Will only run the 4 following cases:
 ...
 collected 13 items 
 
-test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 1] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 2] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 3] PASSED
-test_polyfit.py::test_poly_fit[polyfit(degree=2)-Anscombe's quartet 4] PASSED
+test_polyfit.py::test_poly_fit[polyfit-degree=2-anscombes_quartet-id=1] PASSED  [ 25%]
+test_polyfit.py::test_poly_fit[polyfit-degree=2-anscombes_quartet-id=2] PASSED  [ 50%]
+test_polyfit.py::test_poly_fit[polyfit-degree=2-anscombes_quartet-id=3] PASSED  [ 75%]
+test_polyfit.py::test_poly_fit[polyfit-degree=2-anscombes_quartet-id=4] PASSED  [100%]
 
 ===== 9 tests deselected by '-ktest_poly_fit[polyfit(degree=2)-Anscombe' ======
-=================== 4 passed, 9 deselected in 0.66 seconds ====================
+=================== 4 passed, 9 deselected in 0.07 seconds ====================
 ```
 
 This might be particularly interesting to debug particular cases, or to perform *profiling* on only a subset (see below).
@@ -190,15 +200,11 @@ Here 53% of the total python execution time is spent inside the evaluation proto
 Note that `pytest-profiling` requires `graphviz` to be installed on your machine. You can install it using `conda install` if your python distribution is anaconda.
 
 !!! note "Windows + anaconda users"
-    If you are in this configuration, you might find that the svg file is not generated even though no particular error is encountered. This is a known bug in pytest-profiling with already a proposed [solution](https://github.com/manahl/pytest-plugins/pull/99). Until they integrate the fix, you may wish to clone the proposed Pull Request branch on your local environment.
+    If you are in this configuration, you might find that the svg file is not generated even though no particular error is encountered. This is a known bug in pytest-profiling that was [fixed](https://github.com/man-group/pytest-plugins/pull/99) but we are still waiting for the corresponding [release on pypi](https://github.com/man-group/pytest-plugins/issues/162). In the meantime you can clone the PR locally.
     
 !!! note "Pycharm + anaconda users"
     If you are in this configuration and installed graphviz using conda, PyCharm might forget to add it to the system PATH. You have to do it manually. This is a known issue in [PyCharm](https://youtrack.jetbrains.com/issue/PY-32408).
     
-### g- Optional: pytest logging
-
-**TODO** explain how to use `pytest-logger` to generate one log file per test node.
-
 ## Code details
 
 Our solution is made of three files:
@@ -212,44 +218,49 @@ Our solution is made of three files:
 
 ### a- Evaluation protocol
 
-The first thing to do when creating a benchmark is to create the function that will evaluate each node (i.e. that will correspond to a single row in the results table). For this we create a pytest test function, that is, a function whose name starts with `test_`. *Note: the file name should also start with `test_`, that's a requirement from pytest.*
+The first thing to do when creating a benchmark is to create the function that will evaluate each node (i.e. that will correspond to a single row in the results table). For this we create a `pytest` test function, that is, a function whose name starts with `test_`. *Note: the file name should also start with `test_`, that's a requirement from pytest.*
 
 ```python
 def test_poly_fit(challenger, dataset, results_bag):
-    # Get the test case at hand
-    x, y = dataset
-
     # Fit the model
-    challenger.fit(x, y)
+    challenger.fit(dataset.x, dataset.y)
+    results_bag.model = challenger
 
     # Use the model to perform predictions
-    predictions = challenger.predict(x)
+    predictions = challenger.predict(dataset.x)
 
     # Evaluate the prediction error
-    cvrmse = np.sqrt(np.mean((predictions-y)**2)) / np.mean(y)
+    cvrmse = np.sqrt(np.mean((predictions-dataset.y)**2)) / np.mean(dataset.y)
+    print("Relative error (cv-rmse) is: %.2f%%" % (cvrmse * 100))
     results_bag.cvrmse = cvrmse
 ```
 
-Now we need to tell pytest how to generate the three inputs:
+Now we need to tell `pytest` how to generate the three inputs:
 
  - we need to collect and inject the `challenger` objects, that should implement both a `fit` and `predict` method
  - we need to collect and inject the `dataset` objects, that should be tuples `(x, y)`
- - we need to collect and inject the `results_bag` objects, where we store our cv-rmse metric.
+ - we need to inject the `results_bag` objects, where we store our cv-rmse metric, and collect all of them to make the synthesis table
 
 We will perform all of this by relying on the same mechanism: `pytest` "fixtures". However that would require a significant amount of code so we rely on plugins to help us on the way. 
 
 
 ### b- Challengers
 
-We create a `challenger` fixture, with a single parameter containing the degree to use in `np.polyfit`:
+We create a `challenger` fixture that relies on `pytest-cases` to gather all case functions prefixed with `algo_` from module `challengers_polyfit.py`:
 
 ```python
-@pytest.fixture(params=[1, 2], ids="polyfit(degree={})".format)
-def challenger(request):
-    return PolyFitChallenger(degree=request.param)
+@fixture
+@parametrize_with_cases("algo", cases='.challengers_polyfit', prefix='algo_')
+def challenger(algo):
+    """ A fixutre collecting all challengers from `challengers_polyfit.py` """
+    # (optional setup code here)
+    yield algo
+    # (optional teardown code here)
 ```
 
-In order to separate the challenger implementation code from the evaluation protocol, our `PolyFitChallenger` class is located in `challengers_polyfit.py`. It is made of two classes:
+This fixture is not mandatory (the test itself could be parametrized with the cases directly) but it can be handy to execute some setup/teardown code transverse to all challengers - this is why we show this.
+
+All the code in charge to create the challengers is therefore located in the separate `challengers_polyfit.py` file. This file is made of two parts:
 
  - **Interface** - `BenchmarkChallenger` is the interface that all challengers should implement to enter the benchmark. Here we define that challengers should implement two methods : `fit` and `predict`.
  
@@ -262,7 +273,7 @@ class BenchmarkChallenger(object):
         pass
 ```
 
- - **Implementation** - `PolyFitChallenger` is the class representing a `np.polyfit`-based challenger. This class provides a concrete implementation of `fit` and `predict`, based on numpy. It has one remaining parameter in the constructor: `degree`.
+ - **Implementation** - `PolyFitChallenger` is the class representing a `np.polyfit`-based challenger. This class provides a concrete implementation of `fit` and `predict`, based on numpy. It has one remaining parameter in the constructor: `degree`. It is used to create two challengers with degrees 1 and 2, in the case function `algo_polyfit`
 
 ```python
 class PolyFitChallenger(BenchmarkChallenger):
@@ -270,61 +281,72 @@ class PolyFitChallenger(BenchmarkChallenger):
         self.degree = degree
        
     # ... (implementation of `fit` and `predict`)
+
+@parametrize(degree=[1, 2])
+def algo_polyfit(degree):
+    return PolyFitChallenger(degree=degree)
 ```
+
 
 ### c- Datasets
 
-We create a `dataset` fixture by leveraging `@cases_fixture` (from `pytest_cases`). This decorator allow us to easily parametrize a fixture from a variety of case functions located in a separate module.
+Similar to `challenger`, we create a `dataset` fixture to gather all case functions prefixed with `data_` from module `datasets_polyfit.py`.
 
 ```python
-@cases_fixture(module=datasets_polyfit, scope='session')
-def dataset(case_data):
-    return case_data.get()
+@fixture(scope='session')
+@parametrize_with_cases("data", cases='.datasets_polyfit', prefix='data_')
+def dataset(data):
+    # (optional setup code here)
+    yield data
+    # (optional teardown code here)
 ```
 
-All the code in charge to create the datasets is therefore located in the separate `datasets_polyfit.py` file. There are two main *case functions*:
+All the code in charge to create the datasets is therefore located in the separate `datasets_polyfit.py` file. Once again this file first defines the **interface**, in this case what a `Dataset` is (a `namedtuple)`:
+
+```python
+Dataset = namedtuple("Dataset", ('x', 'y'))
+```
+
+And them the **implementation** with two main type of dataset generators:
 
  - one to generate data **from code**. This function creates the 4 datasets known as Anscombe's quartet.
  
 ```python
-@cases_generator("Anscombe's quartet {i}", i=range(1, 5))
-def case_anscombe(i):
-    if i == 1:
+@parametrize(id=range(1, 5))
+def data_anscombes_quartet(id):
+    if id == 1:
         x = [10.0, 8.0, 13.0, 9.0, 11.0, 14.0, 6.0, 4.0, 12.0, 7.0, 5.0]
         y = [8.04, 6.95, 7.58, 8.81, 8.33, 9.96, 7.24, 4.26, 10.84, 4.82, 5.68]
-    elif i == 2:
+    elif id == 2:
         x = [10.0, 8.0, 13.0, 9.0, 11.0, 14.0, 6.0, 4.0, 12.0, 7.0, 5.0]
         y = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
     ...
-
-    return x, y
+    return Dataset(x, y)
 ```
  
  - and another **from csv files** located in the `datasets/` folder.
 
 ```python
-ALL_DATASET_FILES = [(DATASETS_DIR, file_name) 
-                     for file_name in listdir(DATASETS_DIR)]
+datasets_dir = Path(__file__).parent / 'datasets'
+all_csv_files = [datasets_dir / file_name for file_name in datasets_dir.glob('*.csv')]
 
-@cases_generator("Datafile '{csv_file_path[1]}'", csv_file_path=ALL_DATASET_FILES)
-def case_file(csv_file_path):
-    my_data = np.genfromtxt(path.join(*csv_file_path), delimiter=',', names=True)
-    return my_data['x'], my_data['y']
+@parametrize(csv_file_path=all_csv_files, idgen=lambda csv_file_path: csv_file_path.stem)
+def data_csvfile(csv_file_path):
+    """ Generates one case per file in the datasets/ folder """
+    my_data = np.genfromtxt(csv_file_path, delimiter=',', names=True)
+    return Dataset(x=my_data['x'], y=my_data['y'])
 ```
+
+Note: the `@pytest.mark.parametrize` syntax is not yet available for `@pytest.fixture` (vote for it [here](https://github.com/pytest-dev/pytest/issues/3960)!), that is why we use the drop-in replacement provided in `pytest-cases` named `@fixture`. We also use the `@parametrize` variant proposed by `pytest-cases` to benefit from its additional usability features.
 
 See [pytest-cases documentation](https://smarie.github.io/python-pytest-cases/) for details.
 
 
-### d- Results bag
+### d- Results bag and synthesis table creation
 
-The `results_bag` fixture is automatically created when you install `pytest-harvest`, according to [pytest_harvest documentation](https://smarie.github.io/python-pytest-harvest/). So we have nothing particular to do.
+The `results_bag` fixture is automatically created when you install `pytest-harvest`, according to [pytest_harvest documentation](https://smarie.github.io/python-pytest-harvest/). So we have nothing particular to do to have your test function receive it.
 
-
-### e- Synthesis table creation
-
-If we run pytest at this stage, all combinations of `challenger`s and `dataset`s would be evaluated, and the `results_bag` of each execution would be stored in the global `fixture_store` fixture. 
-
-To retrieve all results and make the final table we simply create an additional test using the `module_results_df` fixture. We can then edit that table according to our display preferences: 
+If we run `pytest` at this stage, all combinations of `challenger`s and `dataset`s would be evaluated, and the `results_bag` of each execution would be stored in the global `fixture_store` fixture. To retrieve all results and make the final table we simply create an additional test using the `module_results_df` fixture from `pytest-harvest`. We can then edit that table according to our display preferences: 
 
 ```python
 def test_synthesis(module_results_df):
@@ -342,9 +364,34 @@ def test_synthesis(module_results_df):
 
 Note that according to [pytest_harvest documentation](https://smarie.github.io/python-pytest-harvest/) there are many alternate places where you could put this code. I personally like it in a test, because it appears in the IDE pytest tree - but that is not a mandatory feature :) Our only true requirement here is that is runs after all the `test_poly_fit[...]` test nodes.
 
+### e- Logging
+
+With `pytest`, logging to one file per test is very easy, we follow [this suggestion from stackoverflow](https://stackoverflow.com/a/60495774/7262247) to dynamically assign the log file name according to the currently executed test id:
+ 
+```python
+# logging configuration
+exec_log = logging.getLogger('algo')
+logs_dir = Path(__file__).parent / "logs"
+
+
+@fixture(autouse=True)
+def configure_logging(request, caplog):
+    """ Set log file name same as test name, and set log level. You could change the format here too """
+    log_file = logs_dir / ("%s.log" % request.node.name)
+    request.config.pluginmanager.get_plugin("logging-plugin").set_log_path(log_file)
+    caplog.set_level(logging.INFO)
+```
+ 
+See [`pytest` documentation on logging](https://docs.pytest.org/en/stable/logging.html) for details.
+
 
 ### f- Summary
 
 To sum-up, the code architecture looks like this:
 
 ![Architecture](Architecture.png)
+
+
+## To go further
+
+We describe a few additions to this example in the [advanced version](../data_science_benchmark_3/)

@@ -1,7 +1,9 @@
 site_name: pytest_patterns
 # site_description: 'A short description of my project'
 repo_url: https://github.com/smarie/pytest-patterns
-pages:
+docs_dir: .
+site_dir: ../site
+nav:
     - Home: index.md
     - Examples:
       - Data science benchmark: examples/data_science_benchmark/index.md
