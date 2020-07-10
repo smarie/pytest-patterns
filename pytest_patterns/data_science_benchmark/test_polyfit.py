@@ -1,66 +1,62 @@
+from pathlib import Path
+
 import numpy as np
+from pytest_cases import fixture, parametrize_with_cases
+import logging
 
-import pytest
-from pytest_cases import cases_fixture
-from pytest_harvest.results_bags import ResultsBag
-
-from .challengers_polyfit import PolyFitChallenger
-from . import datasets_polyfit
-
-
-# ------------ The two challengers ----------
-@pytest.fixture(params=[1, 2], ids="polyfit(degree={})".format)
-def challenger(request):
-    """
-    A fixture creating the two challengers
-    """
-    return PolyFitChallenger(degree=request.param)
+# logging configuration
+exec_log = logging.getLogger('algo')
+logs_dir = Path(__file__).parent / "logs"
 
 
-# ------------- To collect datasets ------------
-@cases_fixture(module=datasets_polyfit, scope='session')
-def dataset(case_data):
-    """
-    A fixture collecting all datasets declared by module `datasets_polyfit`.
-    Some are generated and some others are loaded from files in ./datasets/ folder.
+@fixture(autouse=True)
+def configure_logging(request, caplog):
+    """ Set log file name same as test name, and set log level. You could change the format here too """
+    log_file = logs_dir / ("%s.log" % request.node.name)
+    request.config.pluginmanager.get_plugin("logging-plugin").set_log_path(log_file)
+    caplog.set_level(logging.INFO)
 
+
+@fixture
+@parametrize_with_cases("algo", cases='.challengers_polyfit', prefix='algo_')
+def challenger(algo):
+    """ A fixutre collecting all challengers from `challengers_polyfit.py` """
+    # (optional setup code here)
+    yield algo
+    # (optional teardown code here)
+
+
+@fixture(scope='session')
+@parametrize_with_cases("data", cases='.datasets_polyfit', prefix='data_')
+def dataset(data):
+    """ A fixture collecting all datasets from `datasets_polyfit.py`.
     Note: we use "scope=session" so that this method is called only once per case.
-    This ensures that each file is read once. We could reach the same result by using
-    lru_cache in the case function, but since we have several case functions it would
-    be more cumbersome to do.
+    This ensures that each file is read once.
     """
-    # get the dataset
-    x, y = case_data.get()
-    return x, y
+    # (optional setup code here)
+    yield data
+    # (optional teardown code here)
 
 
-# ------------- To evaluate the algorithms ------------
 def test_poly_fit(challenger, dataset, results_bag):
+    """ Evaluation protocol.
+    Applies the `challenger` on the provided `dataset`, and stores the model accuracy (cv-rmse) in the results_bag
     """
-    Tests the polyfit function with `degree` on the provided `dataset`,
-    and stores the model accuracy (cv-rmse) in the results_bag
-    """
-
-    # Get the test case at hand
-    x, y = dataset
 
     # Fit the model
-    challenger.fit(x, y)
+    exec_log.info("fitting model")
+    challenger.fit(dataset.x, dataset.y)
     results_bag.model = challenger
 
     # Use the model to perform predictions
-    predictions = challenger.predict(x)
+    exec_log.info("predicting")
+    predictions = challenger.predict(dataset.x)
 
     # Evaluate the prediction error
-    cvrmse = np.sqrt(np.mean((predictions-y)**2)) / np.mean(y)
+    exec_log.info("evaluating error")
+    cvrmse = np.sqrt(np.mean((predictions-dataset.y)**2)) / np.mean(dataset.y)
     print("Relative error (cv-rmse) is: %.2f%%" % (cvrmse * 100))
     results_bag.cvrmse = cvrmse
-
-
-# To make sure that the benchmark is not biased by import times on the first run, we perform a first run here
-test_poly_fit(challenger=PolyFitChallenger(degree=1),
-              dataset=(np.arange(10), np.arange(10)),
-              results_bag=ResultsBag())
 
 
 # ------------- To create the final benchmark table ------------
@@ -73,7 +69,7 @@ def test_synthesis(module_results_df):
     # ----------- (1) `module_results_df` contains the raw (12 rows) table -----------
     # rename columns and only keep useful information
     module_results_df = rename_with_checks(module_results_df, columns={'challenger_param': 'degree',
-                                                                       'dataset__case_data_param': 'dataset'})
+                                                                       'dataset_param': 'dataset'})
     module_results_df['challenger'] = module_results_df['model'].map(str)  # only keep the string representation
     module_results_df = module_results_df[['dataset', 'challenger', 'degree', 'status', 'duration_ms', 'cvrmse']]
 
