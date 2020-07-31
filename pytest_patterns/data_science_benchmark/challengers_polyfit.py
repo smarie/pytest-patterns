@@ -5,11 +5,14 @@ from pytest_cases import parametrize
 
 class BenchmarkChallenger(object):
     """ Represents the API that a challenger should implement to enter the benchmark """
+
     def fit(self, x, y):
-        pass
+        """ Implementors should train the model based on (x, y) """
+        raise NotImplementedError()
 
     def predict(self, x):
-        pass
+        """ Implementors should return a numpy array of predictions. """
+        raise NotImplementedError()
 
 
 class PolyFitChallenger(BenchmarkChallenger):
