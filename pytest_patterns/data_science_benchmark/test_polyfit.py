@@ -1,8 +1,10 @@
+import logging
 from pathlib import Path
 
 import numpy as np
+
 from pytest_cases import fixture, parametrize_with_cases
-import logging
+
 
 # logging configuration
 exec_log = logging.getLogger('algo')
