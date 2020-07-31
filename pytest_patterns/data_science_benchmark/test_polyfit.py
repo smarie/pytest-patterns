@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+from warnings import warn
 
 import numpy as np
 
@@ -83,7 +84,7 @@ def test_synthesis(module_results_df):
         from tabulate import tabulate
         print("\n" + tabulate(module_results_df, headers='keys', tablefmt='pipe'))
     except ImportError:
-        pass
+        warn("Please install tabulate to see the tables more nicely")
 
     # ----------- (2) graphical synthesis: bar chart (requires matplotlib)------------
     try:
