@@ -23,14 +23,14 @@ def configure_logging(request, caplog):
 @fixture
 @parametrize_with_cases("algo", cases='.challengers_polyfit', prefix='algo_')
 def challenger(algo):
-    """ A fixutre collecting all challengers from `challengers_polyfit.py` """
+    """ A fixture collecting all challengers from `challengers_polyfit.py` """
     # (optional setup code here)
     yield algo
     # (optional teardown code here)
 
 
-@fixture(scope='session')
-@parametrize_with_cases("data", cases='.datasets_polyfit', prefix='data_')
+@fixture
+@parametrize_with_cases("data", cases='.datasets_polyfit', prefix='data_', scope="session")
 def dataset(data):
     """ A fixture collecting all datasets from `datasets_polyfit.py`.
     Note: we use "scope=session" so that this method is called only once per case.
@@ -45,6 +45,8 @@ def test_poly_fit(challenger, dataset, results_bag):
     """ Evaluation protocol.
     Applies the `challenger` on the provided `dataset`, and stores the model accuracy (cv-rmse) in the results_bag
     """
+    # log the dataset name
+    results_bag.dataset_id = dataset.name
 
     # Fit the model
     exec_log.info("fitting model")
@@ -71,8 +73,8 @@ def test_synthesis(module_results_df):
     """
     # ----------- (1) `module_results_df` contains the raw (12 rows) table -----------
     # rename columns and only keep useful information
-    module_results_df = rename_with_checks(module_results_df, columns={'challenger_param': 'degree',
-                                                                       'dataset_param': 'dataset'})
+    module_results_df = rename_with_checks(module_results_df, columns={'challenger_algo_param': 'degree',
+                                                                       'dataset_id': 'dataset'})
     module_results_df['challenger'] = module_results_df['model'].map(str)  # only keep the string representation
     module_results_df = module_results_df[['dataset', 'challenger', 'degree', 'status', 'duration_ms', 'cvrmse']]
 

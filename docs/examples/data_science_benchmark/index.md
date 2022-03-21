@@ -222,6 +222,9 @@ The first thing to do when creating a benchmark is to create the function that w
 
 ```python
 def test_poly_fit(challenger, dataset, results_bag):
+    # log the dataset name
+    results_bag.dataset_id = dataset.name
+    
     # Fit the model
     challenger.fit(dataset.x, dataset.y)
     results_bag.model = challenger
@@ -293,8 +296,8 @@ def algo_polyfit(degree):
 Similar to `challenger`, we create a `dataset` fixture to gather all case functions prefixed with `data_` from module `datasets_polyfit.py`.
 
 ```python
-@fixture(scope='session')
-@parametrize_with_cases("data", cases='.datasets_polyfit', prefix='data_')
+@fixture
+@parametrize_with_cases("data", cases='.datasets_polyfit', prefix='data_', scope="session")
 def dataset(data):
     # (optional setup code here)
     yield data
@@ -304,7 +307,7 @@ def dataset(data):
 All the code in charge to create the datasets is therefore located in the separate `datasets_polyfit.py` file. Once again this file first defines the **interface**, in this case what a `Dataset` is (a `namedtuple)`:
 
 ```python
-Dataset = namedtuple("Dataset", ('x', 'y'))
+Dataset = namedtuple("Dataset", ('name', 'x', 'y'))
 ```
 
 And them the **implementation** with two main type of dataset generators:
@@ -321,7 +324,7 @@ def data_anscombes_quartet(id):
         x = [10.0, 8.0, 13.0, 9.0, 11.0, 14.0, 6.0, 4.0, 12.0, 7.0, 5.0]
         y = [9.14, 8.14, 8.74, 8.77, 9.26, 8.10, 6.13, 3.10, 9.13, 7.26, 4.74]
     ...
-    return Dataset(x, y)
+    return Dataset(name="Anscombes-%s" % id, x=x, y=y)
 ```
  
  - and another **from csv files** located in the `datasets/` folder.
@@ -334,7 +337,7 @@ all_csv_files = [datasets_dir / file_name for file_name in datasets_dir.glob('*.
 def data_csvfile(csv_file_path):
     """ Generates one case per file in the datasets/ folder """
     my_data = np.genfromtxt(csv_file_path, delimiter=',', names=True)
-    return Dataset(x=my_data['x'], y=my_data['y'])
+    return Dataset(name="CsvFile-%s" % csv_file_path.stem, x=my_data['x'], y=my_data['y'])
 ```
 
 Note: the `@pytest.mark.parametrize` syntax is not yet available for `@pytest.fixture` (vote for it [here](https://github.com/pytest-dev/pytest/issues/3960)!), that is why we use the drop-in replacement provided in `pytest-cases` named `@fixture`. We also use the `@parametrize` variant proposed by `pytest-cases` to benefit from its additional usability features.
@@ -353,11 +356,10 @@ def test_synthesis(module_results_df):
     # `module_results_df` already contains everything at this point.
     
     # For display we rename columns and only keep useful information
-    module_results_df = module_results_df.rename(columns={'challenger_param': 'degree', 
-                                                          'dataset_param': 'dataset'})
-    module_results_df['challenger'] = module_results_df['model'].map(str)
-    module_results_df = module_results_df[['dataset', 'challenger', 'degree', 
-                                           'status', 'duration_ms', 'cvrmse']]
+    module_results_df = rename_with_checks(module_results_df, columns={'challenger_algo_param': 'degree',
+                                                                       'dataset_id': 'dataset'})
+    module_results_df['challenger'] = module_results_df['model'].map(str)  # only keep the string representation
+    module_results_df = module_results_df[['dataset', 'challenger', 'degree', 'status', 'duration_ms', 'cvrmse']]
     
     ...
 ```

@@ -5,7 +5,7 @@ import numpy as np
 from pytest_cases import parametrize
 
 
-Dataset = namedtuple("Dataset", ('x', 'y'))
+Dataset = namedtuple("Dataset", ('name', 'x', 'y'))
 """A minimal structure representing a dataset"""
 
 
@@ -31,7 +31,7 @@ def data_anscombes_quartet(id):
 
     x = np.array(x, dtype=float)
     y = np.array(y, dtype=float)
-    return Dataset(x, y)
+    return Dataset(name="Anscombes-%s" % id, x=x, y=y)
 
 
 # -------------- example data created from files --------------
@@ -43,4 +43,4 @@ all_csv_files = [datasets_dir / file_name for file_name in datasets_dir.glob('*.
 def data_csvfile(csv_file_path):
     """ Generates one case per file in the datasets/ folder """
     my_data = np.genfromtxt(csv_file_path, delimiter=',', names=True)
-    return Dataset(x=my_data['x'], y=my_data['y'])
+    return Dataset(name="CsvFile-%s" % csv_file_path.stem, x=my_data['x'], y=my_data['y'])
